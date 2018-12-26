@@ -20,5 +20,8 @@
     <Folder Include="Entities\CRM\" />
     <Folder Include="Entities\Invent\" />
     <Folder Include="Entities\CrmViewModels\" />
+    <Folder Include="MVC\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 </Project>
