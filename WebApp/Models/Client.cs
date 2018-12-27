@@ -14,7 +14,6 @@ namespace WebApp.Models
             public string Title { get; set; }
             public string Content { get; set; }
 
-            public int ClientId { get; set; }
-            public Client Client { get; set; }
+            public Client ClientId { get; set; }
         }     } }
 

@@ -9,7 +9,7 @@ using WebApp.Data;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(TriumphDbContext))]
-    [Migration("20181227150936_InitialCreate")]
+    [Migration("20181227164755_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,7 +49,7 @@ namespace WebApp.Migrations
                     b.Property<int>("NoteId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ClientId");
+                    b.Property<int?>("ClientID");
 
                     b.Property<string>("Content");
 
@@ -57,21 +57,9 @@ namespace WebApp.Migrations
 
                     b.HasKey("NoteId");
 
-                    b.HasIndex("ClientId");
+                    b.HasIndex("ClientID");
 
                     b.ToTable("Note");
-                });
-
-            modelBuilder.Entity("WebApp.Models.ClientNotes", b =>
-                {
-                    b.Property<int>("ClientNoteID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("NoteDescription");
-
-                    b.HasKey("ClientNoteID");
-
-                    b.ToTable("ClientNote");
                 });
 
             modelBuilder.Entity("WebApp.Models.Contact", b =>
@@ -106,6 +94,8 @@ namespace WebApp.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Email");
+
+                    b.Property<int>("EnumRoles");
 
                     b.Property<string>("FirstName");
 
@@ -146,6 +136,32 @@ namespace WebApp.Migrations
                     b.ToTable("Projects");
                 });
 
+            modelBuilder.Entity("WebApp.ViewModel.ClientViewModel", b =>
+                {
+                    b.Property<int>("ClientID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("AssignedEmpID");
+
+                    b.Property<string>("BusinessName");
+
+                    b.Property<string>("DisplayName");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("Phone");
+
+                    b.HasKey("ClientID");
+
+                    b.HasIndex("AssignedEmpID");
+
+                    b.ToTable("ClientVM");
+                });
+
             modelBuilder.Entity("WebApp.Models.Client", b =>
                 {
                     b.HasOne("WebApp.Models.Employee", "Assigned")
@@ -155,10 +171,9 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("WebApp.Models.Client+Note", b =>
                 {
-                    b.HasOne("WebApp.Models.Client", "Client")
+                    b.HasOne("WebApp.Models.Client", "ClientId")
                         .WithMany("Notes")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ClientID");
                 });
 
             modelBuilder.Entity("WebApp.Models.Project", b =>
@@ -170,6 +185,13 @@ namespace WebApp.Migrations
                     b.HasOne("WebApp.Models.Employee")
                         .WithMany("Projects")
                         .HasForeignKey("EmployeeEmpID");
+                });
+
+            modelBuilder.Entity("WebApp.ViewModel.ClientViewModel", b =>
+                {
+                    b.HasOne("WebApp.Models.Employee", "Assigned")
+                        .WithMany()
+                        .HasForeignKey("AssignedEmpID");
                 });
 #pragma warning restore 612, 618
         }

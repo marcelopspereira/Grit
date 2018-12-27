@@ -8,19 +8,6 @@ namespace WebApp.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ClientNote",
-                columns: table => new
-                {
-                    ClientNoteID = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    NoteDescription = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ClientNote", x => x.ClientNoteID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Contacts",
                 columns: table => new
                 {
@@ -50,7 +37,8 @@ namespace WebApp.Migrations
                     LastName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Phone = table.Column<string>(nullable: true),
-                    Notes = table.Column<string>(nullable: true)
+                    Notes = table.Column<string>(nullable: true),
+                    EnumRoles = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,6 +71,31 @@ namespace WebApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ClientVM",
+                columns: table => new
+                {
+                    ClientID = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    BusinessName = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Phone = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    DisplayName = table.Column<string>(nullable: true),
+                    AssignedEmpID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClientVM", x => x.ClientID);
+                    table.ForeignKey(
+                        name: "FK_ClientVM_Employees_AssignedEmpID",
+                        column: x => x.AssignedEmpID,
+                        principalTable: "Employees",
+                        principalColumn: "EmpID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Note",
                 columns: table => new
                 {
@@ -90,17 +103,17 @@ namespace WebApp.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(nullable: true),
                     Content = table.Column<string>(nullable: true),
-                    ClientId = table.Column<int>(nullable: false)
+                    ClientID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Note", x => x.NoteId);
                     table.ForeignKey(
-                        name: "FK_Note_Clients_ClientId",
-                        column: x => x.ClientId,
+                        name: "FK_Note_Clients_ClientID",
+                        column: x => x.ClientID,
                         principalTable: "Clients",
                         principalColumn: "ClientID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -139,9 +152,14 @@ namespace WebApp.Migrations
                 column: "AssignedEmpID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Note_ClientId",
+                name: "IX_ClientVM_AssignedEmpID",
+                table: "ClientVM",
+                column: "AssignedEmpID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Note_ClientID",
                 table: "Note",
-                column: "ClientId");
+                column: "ClientID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Projects_AssignedClientIDClientID",
@@ -157,7 +175,7 @@ namespace WebApp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ClientNote");
+                name: "ClientVM");
 
             migrationBuilder.DropTable(
                 name: "Contacts");

@@ -65,6 +65,24 @@ namespace WebApp.Controllers
             return View(client);
         }
 
+        public IActionResult AddNote()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddNote([Bind("ClientID,Notes,ClientNoteID")] Client client)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(client);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Details));
+            }
+            return View(client);
+        }
+
         // GET: Client/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
