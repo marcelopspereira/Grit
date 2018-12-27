@@ -46,6 +46,21 @@
                         </li>
                     </ul>
                 </div>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse navbar-right">
+                    <div class="dropdown">
+                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Add Actions
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item"><a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="Create">Add Employee</a></a>
+                            <a class="dropdown-item"><a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Create">Add Contact</a></a>
+                            <a class="dropdown-item"><a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="Create">Add Client</a></a>
+                            <a class="dropdown-item"><a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Create">Add Project</a></a>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </nav>
     </header>
