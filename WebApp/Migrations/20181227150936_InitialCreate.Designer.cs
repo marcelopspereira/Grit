@@ -9,7 +9,7 @@ using WebApp.Data;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(TriumphDbContext))]
-    [Migration("20181226192320_InitialCreate")]
+    [Migration("20181227150936_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,8 +35,6 @@ namespace WebApp.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("Notes");
-
                     b.Property<string>("Phone");
 
                     b.HasKey("ClientID");
@@ -44,6 +42,36 @@ namespace WebApp.Migrations
                     b.HasIndex("AssignedEmpID");
 
                     b.ToTable("Clients");
+                });
+
+            modelBuilder.Entity("WebApp.Models.Client+Note", b =>
+                {
+                    b.Property<int>("NoteId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ClientId");
+
+                    b.Property<string>("Content");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("NoteId");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("Note");
+                });
+
+            modelBuilder.Entity("WebApp.Models.ClientNotes", b =>
+                {
+                    b.Property<int>("ClientNoteID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("NoteDescription");
+
+                    b.HasKey("ClientNoteID");
+
+                    b.ToTable("ClientNote");
                 });
 
             modelBuilder.Entity("WebApp.Models.Contact", b =>
@@ -123,6 +151,14 @@ namespace WebApp.Migrations
                     b.HasOne("WebApp.Models.Employee", "Assigned")
                         .WithMany()
                         .HasForeignKey("AssignedEmpID");
+                });
+
+            modelBuilder.Entity("WebApp.Models.Client+Note", b =>
+                {
+                    b.HasOne("WebApp.Models.Client", "Client")
+                        .WithMany("Notes")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("WebApp.Models.Project", b =>
