@@ -1,5 +1,5 @@
-# Grit
-Grit Side Project
+# General Notes for GRIT
+GRIT is the side project of Grant Watson to build a better CRM tool
 
 This will be an open sourced CRM tool built with ASP.NET Core 2.2
 
