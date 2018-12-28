@@ -3,14 +3,33 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <PackageId>GRIT Web App</PackageId>
+    <PackageVersion>0.1.0</PackageVersion>
+    <Authors>Grant Watson</Authors>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Owners>Grant Watson</Owners>
+    <PackageProjectUrl>grit.azurewebsites.net</PackageProjectUrl>
   </PropertyGroup>
 
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Production|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType></DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Production</OutputPath>
+    <DefineConstants></DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>obj\Production</IntermediateOutputPath>
+    <NoWarn></NoWarn>
+    <NoStdLib>false</NoStdLib>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.0" />
   </ItemGroup>
 
   <ItemGroup>
