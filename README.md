@@ -10,4 +10,4 @@ GRIT stands for Growth, Relations, and Interactions Terminal. This tool is set t
 
 # GRIT website?
 
-http://grit.azurewebsite.net
+http://grit.azurewebsites.net
