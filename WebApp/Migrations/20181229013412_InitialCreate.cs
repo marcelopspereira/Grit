@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebApp.Migrations
@@ -12,7 +13,7 @@ namespace WebApp.Migrations
                 columns: table => new
                 {
                     ContactId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     OwnerID = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
@@ -32,7 +33,7 @@ namespace WebApp.Migrations
                 columns: table => new
                 {
                     EmpID = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
@@ -50,21 +51,21 @@ namespace WebApp.Migrations
                 columns: table => new
                 {
                     ClientID = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     BusinessName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Phone = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     DisplayName = table.Column<string>(nullable: true),
-                    AssignedEmpID = table.Column<int>(nullable: true)
+                    AssignedToIDEmpID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Clients", x => x.ClientID);
                     table.ForeignKey(
-                        name: "FK_Clients_Employees_AssignedEmpID",
-                        column: x => x.AssignedEmpID,
+                        name: "FK_Clients_Employees_AssignedToIDEmpID",
+                        column: x => x.AssignedToIDEmpID,
                         principalTable: "Employees",
                         principalColumn: "EmpID",
                         onDelete: ReferentialAction.Restrict);
@@ -75,7 +76,7 @@ namespace WebApp.Migrations
                 columns: table => new
                 {
                     ClientID = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     BusinessName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Phone = table.Column<string>(nullable: true),
@@ -100,7 +101,7 @@ namespace WebApp.Migrations
                 columns: table => new
                 {
                     NoteId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(nullable: true),
                     Content = table.Column<string>(nullable: true),
                     ClientID = table.Column<int>(nullable: true)
@@ -121,13 +122,12 @@ namespace WebApp.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     DueDate = table.Column<DateTime>(nullable: false),
                     Attributes = table.Column<string>(nullable: true),
                     Priority = table.Column<string>(nullable: true),
-                    AssignedClientIDClientID = table.Column<int>(nullable: true),
-                    EmployeeEmpID = table.Column<int>(nullable: true)
+                    AssignedClientIDClientID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -138,18 +138,12 @@ namespace WebApp.Migrations
                         principalTable: "Clients",
                         principalColumn: "ClientID",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Projects_Employees_EmployeeEmpID",
-                        column: x => x.EmployeeEmpID,
-                        principalTable: "Employees",
-                        principalColumn: "EmpID",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Clients_AssignedEmpID",
+                name: "IX_Clients_AssignedToIDEmpID",
                 table: "Clients",
-                column: "AssignedEmpID");
+                column: "AssignedToIDEmpID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClientVM_AssignedEmpID",
@@ -165,11 +159,6 @@ namespace WebApp.Migrations
                 name: "IX_Projects_AssignedClientIDClientID",
                 table: "Projects",
                 column: "AssignedClientIDClientID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Projects_EmployeeEmpID",
-                table: "Projects",
-                column: "EmployeeEmpID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

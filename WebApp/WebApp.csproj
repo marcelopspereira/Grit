@@ -36,5 +36,6 @@
     <Folder Include="Data\" />
     <Folder Include="ViewModel\" />
     <Folder Include="Migrations\" />
+    <Folder Include="App_Data\" />
   </ItemGroup>
 </Project>

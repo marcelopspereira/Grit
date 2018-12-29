@@ -35,9 +35,8 @@ namespace WebApp
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            var connection = "Data Source=triumph.db";
-            services.AddDbContext<TriumphDbContext>
-                (options => options.UseSqlite(connection));
+            services.AddDbContext<TriumphDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("TriumphDbConnection")));
 
         }
 
