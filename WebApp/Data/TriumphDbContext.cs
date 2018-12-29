@@ -5,7 +5,7 @@ using WebApp.Models;
 using WebApp.ViewModel;
 
 namespace WebApp.Data
-{     public class TriumphDbContext : IdentityDbContext<ApplicationUser>     {         public TriumphDbContext(DbContextOptions<TriumphDbContext> options)             : base(options)         {         }
+{     public class TriumphDbContext : IdentityDbContext     {         public TriumphDbContext(DbContextOptions<TriumphDbContext> options)             : base(options)         {         }
 
 
         //Base Level Entities
