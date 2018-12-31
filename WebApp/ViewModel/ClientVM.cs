@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WebApp.Models;
 
 namespace WebApp.ViewModel
 {
-    public class ClientViewModel
+    public class ClientVM
     {
         [Key]
         public int ClientID { get; set; }
@@ -26,7 +27,7 @@ namespace WebApp.ViewModel
             get { return (FirstName + " " + LastName); }
         }
 
-        [Display(Name = "Assigned Too")]
-        public Employee Assigned { get; set; }
+        [Display(Name = "Employee Assigned")]
+        public List<Employee> Assigned { get; set; }
     }
 }

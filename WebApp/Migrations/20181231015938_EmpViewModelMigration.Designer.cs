@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApp.Data;
 
 namespace WebApp.Migrations
 {
     [DbContext(typeof(TriumphDbContext))]
-    partial class TriumphDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181231015938_EmpViewModelMigration")]
+    partial class EmpViewModelMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -327,8 +329,6 @@ namespace WebApp.Migrations
 
                     b.Property<string>("Email");
 
-                    b.Property<int?>("EmployeeVMEmpID");
-
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
@@ -337,32 +337,7 @@ namespace WebApp.Migrations
 
                     b.HasKey("ClientID");
 
-                    b.HasIndex("EmployeeVMEmpID");
-
                     b.ToTable("ClientVMs");
-                });
-
-            modelBuilder.Entity("WebApp.ViewModel.EmployeeVM", b =>
-                {
-                    b.Property<int>("EmpID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email");
-
-                    b.Property<int>("EnumRoles");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
-
-                    b.Property<string>("Notes");
-
-                    b.Property<string>("Phone");
-
-                    b.HasKey("EmpID");
-
-                    b.ToTable("EmployeeVMs");
                 });
 
             modelBuilder.Entity("WebApp.ViewModel.ProjectVM", b =>
@@ -381,8 +356,6 @@ namespace WebApp.Migrations
 
                     b.Property<int?>("EmployeeIDEmpID");
 
-                    b.Property<int?>("EmployeeVMEmpID");
-
                     b.Property<string>("Name");
 
                     b.Property<string>("Priority");
@@ -394,8 +367,6 @@ namespace WebApp.Migrations
                     b.HasIndex("EmpFullNameEmpID");
 
                     b.HasIndex("EmployeeIDEmpID");
-
-                    b.HasIndex("EmployeeVMEmpID");
 
                     b.ToTable("ProjectVMs");
                 });
@@ -481,13 +452,6 @@ namespace WebApp.Migrations
                         .HasForeignKey("EmployeeIDEmpID");
                 });
 
-            modelBuilder.Entity("WebApp.ViewModel.ClientVM", b =>
-                {
-                    b.HasOne("WebApp.ViewModel.EmployeeVM")
-                        .WithMany("Clients")
-                        .HasForeignKey("EmployeeVMEmpID");
-                });
-
             modelBuilder.Entity("WebApp.ViewModel.ProjectVM", b =>
                 {
                     b.HasOne("WebApp.Models.Client", "AssignedClientID")
@@ -501,10 +465,6 @@ namespace WebApp.Migrations
                     b.HasOne("WebApp.Models.Employee", "EmployeeID")
                         .WithMany()
                         .HasForeignKey("EmployeeIDEmpID");
-
-                    b.HasOne("WebApp.ViewModel.EmployeeVM")
-                        .WithMany("Projects")
-                        .HasForeignKey("EmployeeVMEmpID");
                 });
 #pragma warning restore 612, 618
         }

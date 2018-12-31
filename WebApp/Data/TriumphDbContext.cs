@@ -12,5 +12,7 @@ namespace WebApp.Data
         public DbSet<Client> Clients { get; set; }         public DbSet<Project> Projects { get; set; }         public DbSet<Employee> Employees { get; set; }         public DbSet<Contact> Contacts { get; set; }
 
         //View Models
-        public DbSet<ClientViewModel> ClientVM { get; set; }     } 
+        public DbSet<ClientVM> ClientVMs { get; set; }
+        public DbSet<ProjectVM> ProjectVMs { get; set; }
+        public DbSet<EmployeeVM> EmployeeVMs { get; set; }     } 
  }

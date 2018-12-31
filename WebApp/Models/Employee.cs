@@ -18,5 +18,14 @@ namespace WebApp.Models
             Admin,
             Manager,
         }
+
+        public class EmpNote
+        {
+            public int NoteId { get; set; }
+            public string Title { get; set; }
+            public string Content { get; set; }
+
+            public Employee EmpID { get; set; }
+        }
     }
 } 
