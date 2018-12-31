@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WebApp.Models;
+using static WebApp.Models.Client;
 
 namespace WebApp.ViewModel
 {
@@ -28,6 +29,7 @@ namespace WebApp.ViewModel
         }
 
         [Display(Name = "Employee Assigned")]
-        public List<Employee> Assigned { get; set; }
+        public virtual ICollection<Employee> Assigned { get; set; }
+        public virtual ICollection<Note> Notes { get; set; }
     }
 }

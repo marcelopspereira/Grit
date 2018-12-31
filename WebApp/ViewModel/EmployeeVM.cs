@@ -46,7 +46,7 @@ namespace WebApp.ViewModel
             public Employee EmpID { get; set; }
         }
 
-        public List<ProjectVM> Projects { get; set; }
-        public List<ClientVM> Clients { get; set; }
+        public IList<ProjectVM> Projects { get; set; }
+        public IList<ClientVM> Clients { get; set; }
     }
 }
