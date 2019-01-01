@@ -4,10 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>@Html.DisplayNameFor(model => model.FullName)'s Details</h1>
 
 <div>
-    <h4>Employee</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -46,6 +45,12 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.EnumRoles)
         </dd>
+    </dl>
+    <h3>Employee Notes</h3>
+    <a class="btn btn-primary btn-lg" asp-area="" asp-controller="Note" asp-action="Create" role="button">Add A new Note</a>
+    <hr />
+    <dl>
+        @Html.DisplayFor(model => model.Notes)
     </dl>
 </div>
 <div>
