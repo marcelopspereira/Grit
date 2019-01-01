@@ -22,7 +22,8 @@ namespace WebApp.Controllers
         // GET: Project
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Projects.ToListAsync());
+            var triumphDbContext = _context.Projects.Include(p => p.Client).Include(p => p.FullName);
+            return View(await triumphDbContext.ToListAsync());
         }
 
         // GET: Project/Details/5
@@ -34,6 +35,8 @@ namespace WebApp.Controllers
             }
 
             var project = await _context.Projects
+                .Include(p => p.Client)
+                .Include(p => p.FullName)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (project == null)
             {
@@ -46,6 +49,8 @@ namespace WebApp.Controllers
         // GET: Project/Create
         public IActionResult Create()
         {
+            ViewData["AssignedClientID"] = new SelectList(_context.Clients, "ClientID", "ClientID");
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmpID", "EmpID");
             return View();
         }
 
@@ -54,7 +59,7 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,DueDate,Attributes,Priority")] Project project)
+        public async Task<IActionResult> Create([Bind("ID,Name,DueDate,Attributes,Priority,AssignedClientID,EmployeeID")] Project project)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +67,8 @@ namespace WebApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AssignedClientID"] = new SelectList(_context.Clients, "ClientID", "ClientID", project.AssignedClientID);
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmpID", "EmpID", project.EmployeeID);
             return View(project);
         }
 
@@ -78,6 +85,8 @@ namespace WebApp.Controllers
             {
                 return NotFound();
             }
+            ViewData["AssignedClientID"] = new SelectList(_context.Clients, "ClientID", "ClientID", project.AssignedClientID);
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmpID", "EmpID", project.EmployeeID);
             return View(project);
         }
 
@@ -86,7 +95,7 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,DueDate,Attributes,Priority")] Project project)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,DueDate,Attributes,Priority,AssignedClientID,EmployeeID")] Project project)
         {
             if (id != project.ID)
             {
@@ -113,6 +122,8 @@ namespace WebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AssignedClientID"] = new SelectList(_context.Clients, "ClientID", "ClientID", project.AssignedClientID);
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmpID", "EmpID", project.EmployeeID);
             return View(project);
         }
 
@@ -125,6 +136,8 @@ namespace WebApp.Controllers
             }
 
             var project = await _context.Projects
+                .Include(p => p.Client)
+                .Include(p => p.FullName)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (project == null)
             {

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebApp.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,6 +48,24 @@ namespace WebApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Clients",
+                columns: table => new
+                {
+                    ClientID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BusinessName = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Phone = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    DisplayName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clients", x => x.ClientID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Contacts",
                 columns: table => new
                 {
@@ -65,24 +83,6 @@ namespace WebApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Contacts", x => x.ContactId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Employees",
-                columns: table => new
-                {
-                    EmpID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    Phone = table.Column<string>(nullable: true),
-                    Notes = table.Column<string>(nullable: true),
-                    EnumRoles = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Employees", x => x.EmpID);
                 });
 
             migrationBuilder.CreateTable(
@@ -192,74 +192,49 @@ namespace WebApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Clients",
+                name: "Employees",
                 columns: table => new
                 {
-                    ClientID = table.Column<int>(nullable: false)
+                    EmpID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BusinessName = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    Phone = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    DisplayName = table.Column<string>(nullable: true),
-                    AssignedToIDEmpID = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Clients", x => x.ClientID);
-                    table.ForeignKey(
-                        name: "FK_Clients_Employees_AssignedToIDEmpID",
-                        column: x => x.AssignedToIDEmpID,
-                        principalTable: "Employees",
-                        principalColumn: "EmpID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ClientVM",
-                columns: table => new
-                {
-                    ClientID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BusinessName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Phone = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    DisplayName = table.Column<string>(nullable: true),
-                    AssignedEmpID = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ClientVM", x => x.ClientID);
-                    table.ForeignKey(
-                        name: "FK_ClientVM_Employees_AssignedEmpID",
-                        column: x => x.AssignedEmpID,
-                        principalTable: "Employees",
-                        principalColumn: "EmpID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Note",
-                columns: table => new
-                {
-                    NoteId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Title = table.Column<string>(nullable: true),
-                    Content = table.Column<string>(nullable: true),
+                    Notes = table.Column<string>(nullable: true),
+                    EnumRoles = table.Column<int>(nullable: false),
                     ClientID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Note", x => x.NoteId);
+                    table.PrimaryKey("PK_Employees", x => x.EmpID);
                     table.ForeignKey(
-                        name: "FK_Note_Clients_ClientID",
+                        name: "FK_Employees_Clients_ClientID",
                         column: x => x.ClientID,
                         principalTable: "Clients",
                         principalColumn: "ClientID",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Notes",
+                columns: table => new
+                {
+                    NoteID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Title = table.Column<string>(nullable: true),
+                    Content = table.Column<string>(nullable: true),
+                    CID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notes", x => x.NoteID);
+                    table.ForeignKey(
+                        name: "FK_Notes_Clients_CID",
+                        column: x => x.CID,
+                        principalTable: "Clients",
+                        principalColumn: "ClientID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -272,17 +247,24 @@ namespace WebApp.Migrations
                     DueDate = table.Column<DateTime>(nullable: false),
                     Attributes = table.Column<string>(nullable: true),
                     Priority = table.Column<string>(nullable: true),
-                    AssignedClientIDClientID = table.Column<int>(nullable: true)
+                    AssignedClientID = table.Column<int>(nullable: false),
+                    EmployeeID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Projects", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Projects_Clients_AssignedClientIDClientID",
-                        column: x => x.AssignedClientIDClientID,
+                        name: "FK_Projects_Clients_AssignedClientID",
+                        column: x => x.AssignedClientID,
                         principalTable: "Clients",
                         principalColumn: "ClientID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Projects_Employees_EmployeeID",
+                        column: x => x.EmployeeID,
+                        principalTable: "Employees",
+                        principalColumn: "EmpID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -325,24 +307,24 @@ namespace WebApp.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Clients_AssignedToIDEmpID",
-                table: "Clients",
-                column: "AssignedToIDEmpID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ClientVM_AssignedEmpID",
-                table: "ClientVM",
-                column: "AssignedEmpID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Note_ClientID",
-                table: "Note",
+                name: "IX_Employees_ClientID",
+                table: "Employees",
                 column: "ClientID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Projects_AssignedClientIDClientID",
+                name: "IX_Notes_CID",
+                table: "Notes",
+                column: "CID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Projects_AssignedClientID",
                 table: "Projects",
-                column: "AssignedClientIDClientID");
+                column: "AssignedClientID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Projects_EmployeeID",
+                table: "Projects",
+                column: "EmployeeID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -363,13 +345,10 @@ namespace WebApp.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ClientVM");
-
-            migrationBuilder.DropTable(
                 name: "Contacts");
 
             migrationBuilder.DropTable(
-                name: "Note");
+                name: "Notes");
 
             migrationBuilder.DropTable(
                 name: "Projects");
@@ -381,10 +360,10 @@ namespace WebApp.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Clients");
+                name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "Employees");
+                name: "Clients");
         }
     }
 }

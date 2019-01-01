@@ -10,22 +10,23 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
-    public class ClientController : Controller
+    public class NoteController : Controller
     {
         private readonly TriumphDbContext _context;
 
-        public ClientController(TriumphDbContext context)
+        public NoteController(TriumphDbContext context)
         {
             _context = context;
         }
 
-        // GET: Client
+        // GET: Note
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Clients.ToListAsync());
+            var triumphDbContext = _context.Notes.Include(n => n.Client);
+            return View(await triumphDbContext.ToListAsync());
         }
 
-        // GET: Client/Details/5
+        // GET: Note/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +34,42 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Clients
-                .FirstOrDefaultAsync(m => m.ClientID == id);
-            if (client == null)
+            var note = await _context.Notes
+                .Include(n => n.Client)
+                .FirstOrDefaultAsync(m => m.NoteID == id);
+            if (note == null)
             {
                 return NotFound();
             }
 
-            return View(client);
+            return View(note);
         }
 
-        // GET: Client/Create
+        // GET: Note/Create
         public IActionResult Create()
         {
+            ViewData["CID"] = new SelectList(_context.Clients, "ClientID", "ClientID");
             return View();
         }
 
-        // POST: Client/Create
+        // POST: Note/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClientID,BusinessName,Email,Phone,FirstName,LastName,DisplayName")] Client client)
+        public async Task<IActionResult> Create([Bind("NoteID,Title,Content,CID")] Note note)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(client);
+                _context.Add(note);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(client);
+            ViewData["CID"] = new SelectList(_context.Clients, "ClientID", "ClientID", note.CID);
+            return View(note);
         }
 
-        // GET: Client/Edit/5
+        // GET: Note/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +77,23 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Clients.FindAsync(id);
-            if (client == null)
+            var note = await _context.Notes.FindAsync(id);
+            if (note == null)
             {
                 return NotFound();
             }
-            return View(client);
+            ViewData["CID"] = new SelectList(_context.Clients, "ClientID", "ClientID", note.CID);
+            return View(note);
         }
 
-        // POST: Client/Edit/5
+        // POST: Note/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ClientID,BusinessName,Email,Phone,FirstName,LastName,DisplayName")] Client client)
+        public async Task<IActionResult> Edit(int id, [Bind("NoteID,Title,Content,CID")] Note note)
         {
-            if (id != client.ClientID)
+            if (id != note.NoteID)
             {
                 return NotFound();
             }
@@ -97,12 +102,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _context.Update(client);
+                    _context.Update(note);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClientExists(client.ClientID))
+                    if (!NoteExists(note.NoteID))
                     {
                         return NotFound();
                     }
@@ -113,10 +118,11 @@ namespace WebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(client);
+            ViewData["CID"] = new SelectList(_context.Clients, "ClientID", "ClientID", note.CID);
+            return View(note);
         }
 
-        // GET: Client/Delete/5
+        // GET: Note/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +130,31 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Clients
-                .FirstOrDefaultAsync(m => m.ClientID == id);
-            if (client == null)
+            var note = await _context.Notes
+                .Include(n => n.Client)
+                .FirstOrDefaultAsync(m => m.NoteID == id);
+            if (note == null)
             {
                 return NotFound();
             }
 
-            return View(client);
+            return View(note);
         }
 
-        // POST: Client/Delete/5
+        // POST: Note/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var client = await _context.Clients.FindAsync(id);
-            _context.Clients.Remove(client);
+            var note = await _context.Notes.FindAsync(id);
+            _context.Notes.Remove(note);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ClientExists(int id)
+        private bool NoteExists(int id)
         {
-            return _context.Clients.Any(e => e.ClientID == id);
+            return _context.Notes.Any(e => e.NoteID == id);
         }
     }
 }

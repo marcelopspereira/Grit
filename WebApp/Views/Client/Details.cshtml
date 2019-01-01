@@ -1,48 +1,51 @@
 @model WebApp.Models.Client
 
 @{
-    ViewData["Title"] = "Details of a Specific Client";
+    ViewData["Title"] = "Details";
 }
 
-<h1>Details for @Html.DisplayFor(model => model.BusinessName)</h1>
+<h1>Details</h1>
 
 <div>
+    <h4>Client</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.BusinessName)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.BusinessName)
         </dd>
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Phone)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Phone)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FullName)
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FullName)
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
         </dd>
-    </dl>
-    <hr />
-    <dl>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Notes)
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Notes)
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
         </dd>
-        <a class="btn btn-primary btn-lg" asp-area="" asp-controller="Client" asp-action="AddNote" role="button">Add a new note</a>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DisplayName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DisplayName)
+        </dd>
     </dl>
 </div>
 <div>

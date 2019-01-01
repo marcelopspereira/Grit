@@ -54,7 +54,7 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EmpID,FirstName,LastName,Email,Phone,Notes")] Employee employee)
+        public async Task<IActionResult> Create([Bind("EmpID,FirstName,LastName,Email,Phone,Notes,EnumRoles")] Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EmpID,FirstName,LastName,Email,Phone,Notes")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("EmpID,FirstName,LastName,Email,Phone,Notes,EnumRoles")] Employee employee)
         {
             if (id != employee.EmpID)
             {

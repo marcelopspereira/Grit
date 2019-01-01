@@ -1,11 +1,12 @@
 @model WebApp.Models.Employee
 
 @{
-    ViewData["Title"] = "Edit this Employee";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Edit @Html.DisplayFor(model => model.FullName)'s information</h1>
+<h1>Edit</h1>
 
+<h4>Employee</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -33,14 +34,14 @@
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <p>Roles</p>
-                <select asp-for="EnumRoles"
-                        asp-items="Html.GetEnumSelectList<Employee.Roles>()"></select>
-            </div>
-            <div class="form-group">
                 <label asp-for="Notes" class="control-label"></label>
                 <input asp-for="Notes" class="form-control" />
                 <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EnumRoles" class="control-label"></label>
+                <select asp-for="EnumRoles" class="form-control"></select>
+                <span asp-validation-for="EnumRoles" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

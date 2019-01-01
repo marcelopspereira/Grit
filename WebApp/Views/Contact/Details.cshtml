@@ -1,15 +1,21 @@
 @model WebApp.Models.Contact
 
 @{
-    ViewData["Title"] = "Lead Details";
+    ViewData["Title"] = "Details";
 }
 
-<h1>@Html.DisplayFor(model => model.Name)'s Details</h1>
+<h1>Details</h1>
 
 <div>
     <h4>Contact</h4>
     <hr />
     <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OwnerID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OwnerID)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>

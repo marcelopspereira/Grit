@@ -10,8 +10,8 @@ using WebApp.Data;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(TriumphDbContext))]
-    [Migration("20181231014120_ProjectVmMigration")]
-    partial class ProjectVmMigration
+    [Migration("20190101205832_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -192,8 +192,6 @@ namespace WebApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AssignedToIDEmpID");
-
                     b.Property<string>("BusinessName");
 
                     b.Property<string>("DisplayName");
@@ -208,28 +206,7 @@ namespace WebApp.Migrations
 
                     b.HasKey("ClientID");
 
-                    b.HasIndex("AssignedToIDEmpID");
-
                     b.ToTable("Clients");
-                });
-
-            modelBuilder.Entity("WebApp.Models.Client+Note", b =>
-                {
-                    b.Property<int>("NoteId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("ClientID");
-
-                    b.Property<string>("Content");
-
-                    b.Property<string>("Title");
-
-                    b.HasKey("NoteId");
-
-                    b.HasIndex("ClientID");
-
-                    b.ToTable("Note");
                 });
 
             modelBuilder.Entity("WebApp.Models.Contact", b =>
@@ -265,7 +242,7 @@ namespace WebApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ClientViewModelClientID");
+                    b.Property<int?>("ClientID");
 
                     b.Property<string>("Email");
 
@@ -281,9 +258,28 @@ namespace WebApp.Migrations
 
                     b.HasKey("EmpID");
 
-                    b.HasIndex("ClientViewModelClientID");
+                    b.HasIndex("ClientID");
 
                     b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("WebApp.Models.Note", b =>
+                {
+                    b.Property<int>("NoteID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CID");
+
+                    b.Property<string>("Content");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("NoteID");
+
+                    b.HasIndex("CID");
+
+                    b.ToTable("Notes");
                 });
 
             modelBuilder.Entity("WebApp.Models.Project", b =>
@@ -292,15 +288,13 @@ namespace WebApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AssignedClientIDClientID");
+                    b.Property<int>("AssignedClientID");
 
                     b.Property<string>("Attributes");
 
                     b.Property<DateTime>("DueDate");
 
-                    b.Property<int?>("EmpFullNameEmpID");
-
-                    b.Property<int?>("EmployeeIDEmpID");
+                    b.Property<int>("EmployeeID");
 
                     b.Property<string>("Name");
 
@@ -308,36 +302,11 @@ namespace WebApp.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("AssignedClientIDClientID");
+                    b.HasIndex("AssignedClientID");
 
-                    b.HasIndex("EmpFullNameEmpID");
-
-                    b.HasIndex("EmployeeIDEmpID");
+                    b.HasIndex("EmployeeID");
 
                     b.ToTable("Projects");
-                });
-
-            modelBuilder.Entity("WebApp.ViewModel.ClientViewModel", b =>
-                {
-                    b.Property<int>("ClientID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("BusinessName");
-
-                    b.Property<string>("DisplayName");
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
-
-                    b.Property<string>("Phone");
-
-                    b.HasKey("ClientID");
-
-                    b.ToTable("ClientVM");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -385,40 +354,32 @@ namespace WebApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("WebApp.Models.Client", b =>
+            modelBuilder.Entity("WebApp.Models.Employee", b =>
                 {
-                    b.HasOne("WebApp.Models.Employee", "AssignedToID")
-                        .WithMany()
-                        .HasForeignKey("AssignedToIDEmpID");
-                });
-
-            modelBuilder.Entity("WebApp.Models.Client+Note", b =>
-                {
-                    b.HasOne("WebApp.Models.Client", "ClientId")
-                        .WithMany("Notes")
+                    b.HasOne("WebApp.Models.Client")
+                        .WithMany("EmpFullName")
                         .HasForeignKey("ClientID");
                 });
 
-            modelBuilder.Entity("WebApp.Models.Employee", b =>
+            modelBuilder.Entity("WebApp.Models.Note", b =>
                 {
-                    b.HasOne("WebApp.ViewModel.ClientViewModel")
-                        .WithMany("Assigned")
-                        .HasForeignKey("ClientViewModelClientID");
+                    b.HasOne("WebApp.Models.Client", "Client")
+                        .WithMany("Notes")
+                        .HasForeignKey("CID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("WebApp.Models.Project", b =>
                 {
-                    b.HasOne("WebApp.Models.Client", "AssignedClientID")
+                    b.HasOne("WebApp.Models.Client", "Client")
                         .WithMany()
-                        .HasForeignKey("AssignedClientIDClientID");
+                        .HasForeignKey("AssignedClientID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("WebApp.Models.Employee", "EmpFullName")
+                    b.HasOne("WebApp.Models.Employee", "FullName")
                         .WithMany()
-                        .HasForeignKey("EmpFullNameEmpID");
-
-                    b.HasOne("WebApp.Models.Employee", "EmployeeID")
-                        .WithMany()
-                        .HasForeignKey("EmployeeIDEmpID");
+                        .HasForeignKey("EmployeeID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
