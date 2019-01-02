@@ -1,13 +1,12 @@
 @model WebApp.Models.Employee
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Details For Employee";
 }
 
-<h1>Details</h1>
+<h1>@Html.DisplayFor(model => model.FirstName)'s Details</h1>
 
 <div>
-    <h4>Employee</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
