@@ -10,22 +10,22 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
-    public class EmployeeController : Controller
+    public class EmployeeNoteController : Controller
     {
         private readonly TriumphDbContext _context;
 
-        public EmployeeController(TriumphDbContext context)
+        public EmployeeNoteController(TriumphDbContext context)
         {
             _context = context;
         }
 
-        // GET: Employee
+        // GET: EmployeeNote
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Employees.ToListAsync());
+            return View(await _context.EmployeeNotes.ToListAsync());
         }
 
-        // GET: Employee/Details/5
+        // GET: EmployeeNote/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees
-                .FirstOrDefaultAsync(m => m.EmpID == id);
-            if (employee == null)
+            var employeeNote = await _context.EmployeeNotes
+                .FirstOrDefaultAsync(m => m.NoteId == id);
+            if (employeeNote == null)
             {
                 return NotFound();
             }
 
-            return View(employee);
+            return View(employeeNote);
         }
 
-        // GET: Employee/Create
+        // GET: EmployeeNote/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Employee/Create
+        // POST: EmployeeNote/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EmpID,FirstName,LastName,Email,Phone,EnumRoles")] Employee employee)
+        public async Task<IActionResult> Create([Bind("NoteId,Title,Content")] EmployeeNote employeeNote)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(employee);
+                _context.Add(employeeNote);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return View(employeeNote);
         }
 
-        // GET: Employee/Edit/5
+        // GET: EmployeeNote/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee == null)
+            var employeeNote = await _context.EmployeeNotes.FindAsync(id);
+            if (employeeNote == null)
             {
                 return NotFound();
             }
-            return View(employee);
+            return View(employeeNote);
         }
 
-        // POST: Employee/Edit/5
+        // POST: EmployeeNote/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EmpID,FirstName,LastName,Email,Phone,EnumRoles")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("NoteId,Title,Content")] EmployeeNote employeeNote)
         {
-            if (id != employee.EmpID)
+            if (id != employeeNote.NoteId)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _context.Update(employee);
+                    _context.Update(employeeNote);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employee.EmpID))
+                    if (!EmployeeNoteExists(employeeNote.NoteId))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace WebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return View(employeeNote);
         }
 
-        // GET: Employee/Delete/5
+        // GET: EmployeeNote/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees
-                .FirstOrDefaultAsync(m => m.EmpID == id);
-            if (employee == null)
+            var employeeNote = await _context.EmployeeNotes
+                .FirstOrDefaultAsync(m => m.NoteId == id);
+            if (employeeNote == null)
             {
                 return NotFound();
             }
 
-            return View(employee);
+            return View(employeeNote);
         }
 
-        // POST: Employee/Delete/5
+        // POST: EmployeeNote/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
-            _context.Employees.Remove(employee);
+            var employeeNote = await _context.EmployeeNotes.FindAsync(id);
+            _context.EmployeeNotes.Remove(employeeNote);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EmployeeExists(int id)
+        private bool EmployeeNoteExists(int id)
         {
-            return _context.Employees.Any(e => e.EmpID == id);
+            return _context.EmployeeNotes.Any(e => e.NoteId == id);
         }
     }
 }

@@ -201,7 +201,6 @@ namespace WebApp.Migrations
                     LastName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Phone = table.Column<string>(nullable: true),
-                    Notes = table.Column<string>(nullable: true),
                     EnumRoles = table.Column<int>(nullable: false),
                     ClientID = table.Column<int>(nullable: true)
                 },
@@ -235,6 +234,27 @@ namespace WebApp.Migrations
                         principalTable: "Clients",
                         principalColumn: "ClientID",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmployeeNotes",
+                columns: table => new
+                {
+                    NoteId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Title = table.Column<string>(nullable: true),
+                    Content = table.Column<string>(nullable: true),
+                    EmpID1 = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeNotes", x => x.NoteId);
+                    table.ForeignKey(
+                        name: "FK_EmployeeNotes_Employees_EmpID1",
+                        column: x => x.EmpID1,
+                        principalTable: "Employees",
+                        principalColumn: "EmpID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -307,6 +327,11 @@ namespace WebApp.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EmployeeNotes_EmpID1",
+                table: "EmployeeNotes",
+                column: "EmpID1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Employees_ClientID",
                 table: "Employees",
                 column: "ClientID");
@@ -346,6 +371,9 @@ namespace WebApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Contacts");
+
+            migrationBuilder.DropTable(
+                name: "EmployeeNotes");
 
             migrationBuilder.DropTable(
                 name: "Notes");

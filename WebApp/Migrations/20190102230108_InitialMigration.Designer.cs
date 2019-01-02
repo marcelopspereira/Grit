@@ -10,7 +10,7 @@ using WebApp.Data;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(TriumphDbContext))]
-    [Migration("20190101205832_InitialMigration")]
+    [Migration("20190102230108_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -252,8 +252,6 @@ namespace WebApp.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("Notes");
-
                     b.Property<string>("Phone");
 
                     b.HasKey("EmpID");
@@ -261,6 +259,25 @@ namespace WebApp.Migrations
                     b.HasIndex("ClientID");
 
                     b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("WebApp.Models.EmployeeNote", b =>
+                {
+                    b.Property<int>("NoteId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content");
+
+                    b.Property<int?>("EmpID1");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("NoteId");
+
+                    b.HasIndex("EmpID1");
+
+                    b.ToTable("EmployeeNotes");
                 });
 
             modelBuilder.Entity("WebApp.Models.Note", b =>
@@ -359,6 +376,13 @@ namespace WebApp.Migrations
                     b.HasOne("WebApp.Models.Client")
                         .WithMany("EmpFullName")
                         .HasForeignKey("ClientID");
+                });
+
+            modelBuilder.Entity("WebApp.Models.EmployeeNote", b =>
+                {
+                    b.HasOne("WebApp.Models.Employee", "EmpID")
+                        .WithMany()
+                        .HasForeignKey("EmpID1");
                 });
 
             modelBuilder.Entity("WebApp.Models.Note", b =>
