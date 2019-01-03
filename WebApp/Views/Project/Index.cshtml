@@ -1,13 +1,13 @@
 @model IEnumerable<WebApp.Models.Project>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Active Projects";
 }
 
-<h1>Index</h1>
+<h1>Active Projects</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create New Project</a>
 </p>
 <table class="table">
     <thead>
@@ -49,10 +49,10 @@
                 @Html.DisplayFor(modelItem => item.Priority)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Client.ClientID)
+                @Html.DisplayFor(modelItem => item.Client.DisplayName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FullName.EmpID)
+                @Html.DisplayFor(modelItem => item.FullName.FullName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

@@ -49,8 +49,8 @@ namespace WebApp.Controllers
         // GET: Project/Create
         public IActionResult Create()
         {
-            ViewData["AssignedClientID"] = new SelectList(_context.Clients, "ClientID", "ClientID");
-            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmpID", "EmpID");
+            ViewData["AssignedClientID"] = new SelectList(_context.Clients, "ClientID", "ClientID", "DisplayName");
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmpID", "EmpID", "FullName");
             return View();
         }
 
