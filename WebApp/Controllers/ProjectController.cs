@@ -49,8 +49,9 @@ namespace WebApp.Controllers
         // GET: Project/Create
         public IActionResult Create()
         {
-            ViewData["AssignedClientID"] = new SelectList(_context.Clients, "ClientID", "ClientID");
-            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmpID", "EmpID");
+            ViewData["AssignedClientID"] = new SelectList(_context.Clients, "ClientID", "BusinessName");
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmpID", "FullName");
+
             return View();
         }
 
@@ -67,8 +68,8 @@ namespace WebApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AssignedClientID"] = new SelectList(_context.Clients, "ClientID", "ClientID", project.AssignedClientID);
-            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmpID", "EmpID", project.EmployeeID);
+            ViewData["AssignedClientID"] = new SelectList(_context.Clients, "ClientID", "BusinessName", project.AssignedClientID);
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmpID", "FullName", project.EmployeeID);
             return View(project);
         }
 
