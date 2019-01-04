@@ -5,47 +5,47 @@
 }
 
 <h1>@Html.DisplayFor(model => model.FirstName)'s Details</h1>
-
-<div>
-    <hr />
+<div class="row">
+    <div class="col-sm-7">
+        <a asp-action="Edit" asp-route-id="@Model.EmpID">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+    <div class="col-sm-5">
+        <a class="btn btn-primary btn-md" asp-area="" asp-controller="Project" asp-action="Create" role="button">Add a New Project</a>
+        <a class="btn btn-success btn-md" asp-area="" asp-controller="EmployeeNote" asp-action="Create" role="button">Add a New Note</a>
+    </div>
+</div>
+<hr />
+<div class="detailBox">
+    <div class="headerDtB">Contact info</div>
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
+        <dd class="col-sm-5">
+            @Html.DisplayFor(model => model.FullName)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
+    </dl>
+    <dl class="row">
+        <dd class="col-sm-1">
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-1">
             @Html.DisplayFor(model => model.Phone)
         </dd>
-        <dt class = "col-sm-2">
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-1">
             @Html.DisplayNameFor(model => model.EnumRoles)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-2">
             @Html.DisplayFor(model => model.EnumRoles)
         </dd>
     </dl>
 </div>
+
 <hr />
+
 <div>
-    <a class="btn btn-success btn-lg" asp-area="" asp-controller="EmployeeNote" asp-action="Create" role="button">Add a New Note</a>
+    <dl>
+        This is where I am going to add list of notes and projects
+    </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.EmpID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
