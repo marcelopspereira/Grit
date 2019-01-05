@@ -1,13 +1,13 @@
-@model WebApp.Models.Employee
+@model Tuple<WebApp.Models.Employee, WebApp.Models.Project, WebApp.Models.EmployeeNote>
 
 @{
     ViewData["Title"] = "Details For Employee";
 }
 
-<h1>@Html.DisplayFor(model => model.FirstName)'s Details</h1>
+<h1>@Html.DisplayFor(model => model.Item1.FirstName)'s Details</h1>
 <div class="row">
     <div class="col-sm-7">
-        <a class="btn btn-info btn-md" asp-action="Edit" asp-route-id="@Model.EmpID">Edit</a> |
+        <a class="btn btn-info btn-md" asp-action="Edit" asp-route-id="@Model.Item1.EmpID">Edit</a> |
         <a class="btn btn-warning btn-md" asp-action="Index">Back to List</a>
     </div>
     <div class="col-sm-5">
@@ -21,16 +21,16 @@
             <div class="headerDtB">Contact info</div>
             <dl>
                 <dd class="col-sm-7">
-                    <b>Name:</b> @Html.DisplayFor(model => model.FullName)
+                    <b>Name:</b> @Html.DisplayFor(model => model.Item1.FullName)
                 </dd>
                 <dd class="col-sm-7">
-                    <b>Email:</b> @Html.DisplayFor(model => model.Email)
+                    <b>Email:</b> @Html.DisplayFor(model => model.Item1.Email)
                 </dd>
                 <dd class="col-sm-7">
-                    <b>Phone:</b>@Html.DisplayFor(model => model.Phone)
+                    <b>Phone:</b>@Html.DisplayFor(model => model.Item1.Phone)
                 </dd>
                 <dd class="col-sm-7">
-                    <b>Role:</b>@Html.DisplayFor(model => model.EnumRoles)
+                    <b>Role:</b>@Html.DisplayFor(model => model.Item1.EnumRoles)
                 </dd>
             </dl>
         </div>
@@ -40,6 +40,14 @@
             <div class="headerDtB">Current Projects</div>
             <br />
             <a class="btn btn-warning btn-md" asp-area="" asp-controller="Project" asp-action="Create" role="button">Add a New Project</a>
+            <dl>
+                <dd class="col-sm-7">
+                    <b>Project Name:</b> @Html.DisplayFor(model => model.Item2.Name)
+                </dd>
+                <dd class="col-sm-7">
+                    <b>Due Date:</b> @Html.DisplayFor(model => model.Item2.DueDate)
+                </dd>
+            </dl>
         </div>
 </div>
 <hr />
@@ -52,6 +60,14 @@
     <div class="headerDtB">Employee Notes</div>
     <br />
     <a class="btn btn-success btn-md" asp-area="" asp-controller="EmployeeNote" asp-action="Create" role="button">Add a New Note</a>
+    <dl>
+        <dd class="col-sm-7">
+            <b>Note Title:</b> @Html.DisplayFor(model => model.Item3.Title)
+        </dd>
+        <dd class="col-sm-7">
+            <b>Content:</b> @Html.DisplayFor(model => model.Item3.Content)
+        </dd>
+    </dl>
 </div>
 
 
