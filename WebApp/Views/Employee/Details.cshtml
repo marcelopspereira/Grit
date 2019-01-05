@@ -7,45 +7,52 @@
 <h1>@Html.DisplayFor(model => model.FirstName)'s Details</h1>
 <div class="row">
     <div class="col-sm-7">
-        <a asp-action="Edit" asp-route-id="@Model.EmpID">Edit</a> |
-        <a asp-action="Index">Back to List</a>
+        <a class="btn btn-info btn-md" asp-action="Edit" asp-route-id="@Model.EmpID">Edit</a> |
+        <a class="btn btn-warning btn-md" asp-action="Index">Back to List</a>
     </div>
     <div class="col-sm-5">
-        <a class="btn btn-primary btn-md" asp-area="" asp-controller="Project" asp-action="Create" role="button">Add a New Project</a>
-        <a class="btn btn-success btn-md" asp-area="" asp-controller="EmployeeNote" asp-action="Create" role="button">Add a New Note</a>
+
+
     </div>
 </div>
 <hr />
-<div class="detailBox">
-    <div class="headerDtB">Contact info</div>
-    <dl class="row">
-        <dd class="col-sm-5">
-            @Html.DisplayFor(model => model.FullName)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dd class="col-sm-1">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dd class="col-sm-1">
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-1">
-            @Html.DisplayNameFor(model => model.EnumRoles)
-        </dt>
-        <dd class="col-sm-2">
-            @Html.DisplayFor(model => model.EnumRoles)
-        </dd>
-    </dl>
+<div class="row">
+        <div class="detailBox">
+            <div class="headerDtB">Contact info</div>
+            <dl>
+                <dd class="col-sm-7">
+                    <b>Name:</b> @Html.DisplayFor(model => model.FullName)
+                </dd>
+                <dd class="col-sm-7">
+                    <b>Email:</b> @Html.DisplayFor(model => model.Email)
+                </dd>
+                <dd class="col-sm-7">
+                    <b>Phone:</b>@Html.DisplayFor(model => model.Phone)
+                </dd>
+                <dd class="col-sm-7">
+                    <b>Role:</b>@Html.DisplayFor(model => model.EnumRoles)
+                </dd>
+            </dl>
+        </div>
+    <div class="column"></div>
+
+        <div class="detailBox2">
+            <div class="headerDtB">Current Projects</div>
+            <br />
+            <a class="btn btn-warning btn-md" asp-area="" asp-controller="Project" asp-action="Create" role="button">Add a New Project</a>
+        </div>
 </div>
-
 <hr />
-
 <div>
     <dl>
         This is where I am going to add list of notes and projects
     </dl>
 </div>
+<div class="detailBox3">
+    <div class="headerDtB">Employee Notes</div>
+    <br />
+    <a class="btn btn-success btn-md" asp-area="" asp-controller="EmployeeNote" asp-action="Create" role="button">Add a New Note</a>
+</div>
+
+
 

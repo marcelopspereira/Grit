@@ -47,6 +47,12 @@ body {
     position: absolute
 }
 
+.column {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+
 .headerDtB {
     background-color: rgb(0, 105, 217);
     width: auto;
@@ -60,7 +66,7 @@ body {
 
 .detailBox {
     background-color: #fffff1;
-    width: 50%;
+    width: 38%;
     height: auto;
     padding: 9px;
     border-radius: 5px;
@@ -69,7 +75,7 @@ body {
 
 .detailBox2 {
     background-color: #fffff1;
-    width: 50%;
+    width: 61%;
     height: auto;
     padding: 9px;
     border-radius: 5px;
@@ -78,7 +84,7 @@ body {
 
 .detailBox3 {
     background-color: #fffff1;
-    width: 50%;
+    width: 100%;
     height: auto;
     padding: 9px;
     border-radius: 5px;
