@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Data;
 using WebApp.Models;
+using WebApp.ViewModel;
 
 namespace WebApp.Controllers
 {
     public class EmployeeController : Controller
     {
         private readonly TriumphDbContext _context;
+        private EmployeeVM _empvm;
 
         public EmployeeController(TriumphDbContext context)
         {
             _context = context;
+            _empvm = new EmployeeVM();
         }
 
         // GET: Employee
@@ -26,21 +29,26 @@ namespace WebApp.Controllers
         }
 
         // GET: Employee/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int EmpID)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var document = _empvm.GetEmployees(EmpID);
 
-            var employee = await _context.Employees
-                .FirstOrDefaultAsync(m => m.EmpID == id);
-            if (employee == null)
+            EmployeeVM details = new ViewModel.EmployeeVM
             {
-                return NotFound();
-            }
 
-            return View(employee);
+                Document = document,
+                DocumentCategories = categories,
+                DocumentStatuses = statuses,
+                DocumentTypes = types,
+                DT_POCs = pocs,
+                DocumentAttachmentTypes = docAtttachmentTypes,
+                RelatedDocuments = new RelatedDocumentForm
+                {
+                    // Origin = _service.GetDocumentById(DocumentId),
+                    RelatedDocuments = _groupService.GetRelatedDocumentsByDocumentId(DocumentId)
+                }
+            };
+            return View(details);
         }
 
         // GET: Employee/Create
