@@ -1,4 +1,4 @@
-@model WebApp.ViewModel.EmployeeVM
+@model WebApp.Models.Employee
 
 @{
     ViewData["Title"] = "Details For Employee";
@@ -30,7 +30,7 @@
                 <b>Phone:</b>@Html.DisplayFor(model => model.Phone)
             </dd>
             <dd class="col-sm-7">
-                <b>Role:</b>@Html.DisplayFor(model => model.EnumRole)
+                <b>Role:</b>@Html.DisplayFor(model => model.EnumRoles)
             </dd>
         </dl>
     </div>
@@ -42,7 +42,7 @@
         <a class="btn btn-warning btn-md" asp-area="" asp-controller="Project" asp-action="Create" role="button">Add a New Project</a>
         <dl>
             <dd class="col-sm-7">
-                <b>Project Name:</b> @Html.DisplayFor(model => model.Name)
+                <b>Project Name:</b> @Html.DisplayFor(Model. => model.Name)
             </dd>
             <dd class="col-sm-7">
                 <b>Due Date:</b> @Html.DisplayFor(model => model.DueDate)

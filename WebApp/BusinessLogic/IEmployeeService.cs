@@ -11,6 +11,7 @@ namespace WebApp.BusinessLogic
         Employee GetEmployeeById(int EmpID);
         bool CreateEmployee(Employee employee);
         bool UpdateEmployee(Employee employee);
-        bool DeleteEmployee(Employee emp);
+        bool DeleteEmployee(Employee employee);
+        bool ValidateEmp(Employee employee);
     }
 }

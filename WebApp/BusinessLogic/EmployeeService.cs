@@ -1,37 +1,86 @@
 ﻿using System;
 using System.Collections.Generic;
+using WebApp.Data;
 using WebApp.Models;
 
 namespace WebApp.BusinessLogic
 {
     public class EmployeeService : IEmployeeService
     {
-        bool IEmployeeService.CreateEmployee(Employee employee)
+        private IEmployeeRepo _empRepo;
+        private IValidationDictionary _validation;
+        private NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
+        public EmployeeService(IEmployeeRepo projRepo, IValidationDictionary validation)
         {
-            throw new NotImplementedException();
+            _empRepo = projRepo;
+            _validation = validation;
         }
 
-        bool IEmployeeService.DeleteEmployee(Employee emp)
+        public bool CreateEmployee(Employee employee)
         {
-            throw new NotImplementedException();
+            if (!ValidateEmp(employee))
+                return false;
+
+            try
+            {
+                _empRepo.CreateEmployee(employee);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Service Error:  (DS48). " + ex.Message);
+                throw;
+            }
         }
 
-        IEnumerable<Employee> IEmployeeService.Employee()
+        public bool UpdateEmployee(Employee employee)
         {
-            throw new NotImplementedException();
+            if (!ValidateEmp(employee))
+                return false;
+
+            try
+            {
+                _empRepo.UpdateEmployee(employee);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Service Error:  (DS48). " + ex.Message);
+                throw;
+            }
         }
 
-        Employee IEmployeeService.GetEmployeeById(int EmpID)
+        public bool DeleteEmployee(Employee employee)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _empRepo.DeleteEmployee(employee);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Service Error:  (DS139). " + ex.Message);
+                throw;
+            }
         }
 
-        IEnumerable<Employee> IEmployeeService.GetEmployees()
+        public IEnumerable<Employee> Employee()
         {
-            throw new NotImplementedException();
+            return _empRepo.Employee();
         }
 
-        bool IEmployeeService.UpdateEmployee(Employee employee)
+        public Employee GetEmployeeById(int EmpID)
+        {
+            return _empRepo.GetEmployeeById(EmpID);
+        }
+
+        public IEnumerable<Employee> GetEmployees()
+        {
+            return _empRepo.GetEmployees();
+        }
+
+        public bool ValidateEmp(Employee employee)
         {
             throw new NotImplementedException();
         }

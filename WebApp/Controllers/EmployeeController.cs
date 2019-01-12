@@ -14,12 +14,11 @@ namespace WebApp.Controllers
     public class EmployeeController : Controller
     {
         private readonly TriumphDbContext _context;
-        private EmployeeVM _empvm;
+        Project _project = new Project();
 
         public EmployeeController(TriumphDbContext context)
         {
             _context = context;
-            _empvm = new EmployeeVM();
         }
 
         // GET: Employee
@@ -29,26 +28,22 @@ namespace WebApp.Controllers
         }
 
         // GET: Employee/Details/5
-        public async Task<IActionResult> Details(int EmpID)
+        public async Task<IActionResult> Details(int? id)
         {
-            var document = _empvm.GetEmployees(EmpID);
-
-            EmployeeVM details = new ViewModel.EmployeeVM
+            ViewData["Projects"] = _project.GetProjects();
+            if (id == null)
             {
+                return NotFound();
+            }
 
-                Document = document,
-                DocumentCategories = categories,
-                DocumentStatuses = statuses,
-                DocumentTypes = types,
-                DT_POCs = pocs,
-                DocumentAttachmentTypes = docAtttachmentTypes,
-                RelatedDocuments = new RelatedDocumentForm
-                {
-                    // Origin = _service.GetDocumentById(DocumentId),
-                    RelatedDocuments = _groupService.GetRelatedDocumentsByDocumentId(DocumentId)
-                }
-            };
-            return View(details);
+            var employee = await _context.Employees
+                .FirstOrDefaultAsync(m => m.EmpID == id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return View(employee);
         }
 
         // GET: Employee/Create
