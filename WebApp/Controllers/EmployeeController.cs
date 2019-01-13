@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebApp.BusinessLogic;
 using WebApp.Data;
 using WebApp.Models;
 using WebApp.ViewModel;
@@ -14,6 +15,8 @@ namespace WebApp.Controllers
     public class EmployeeController : Controller
     {
         private readonly TriumphDbContext _context;
+        private IEmployeeService _empservice;
+        private IProjectService _prjservice;
         Project _project = new Project();
 
         public EmployeeController(TriumphDbContext context)

@@ -5,26 +5,26 @@ using WebApp.Models;
 
 namespace WebApp.BusinessLogic
 {
-    public class EmployeeService : IEmployeeService
+    public class ClientService : IClientService
     {
-        private IEmployeeRepo _empRepo;
+        private IClientRepo _cliRepo;
         private IValidationDictionary _validation;
         private NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public EmployeeService(IEmployeeRepo empRepo, IValidationDictionary validation)
+        public ClientService(IClientRepo cliRepo, IValidationDictionary validation)
         {
-            _empRepo = empRepo;
+            _cliRepo = cliRepo;
             _validation = validation;
         }
 
-        public bool CreateEmployee(Employee employee)
+        public bool CreateClient(Client client)
         {
-            if (!ValidateEmp(employee))
+            if (!ValidateCli(client))
                 return false;
 
             try
             {
-                _empRepo.CreateEmployee(employee);
+                _cliRepo.CreateClient(client);
                 return true;
             }
             catch (Exception ex)
@@ -34,14 +34,14 @@ namespace WebApp.BusinessLogic
             }
         }
 
-        public bool UpdateEmployee(Employee employee)
+        public bool UpdateClient(Client client)
         {
-            if (!ValidateEmp(employee))
+            if (!ValidateCli(client))
                 return false;
 
             try
             {
-                _empRepo.UpdateEmployee(employee);
+                _cliRepo.UpdateClient(client);
                 return true;
             }
             catch (Exception ex)
@@ -51,11 +51,11 @@ namespace WebApp.BusinessLogic
             }
         }
 
-        public bool DeleteEmployee(Employee employee)
+        public bool DeleteClient(Client client)
         {
             try
             {
-                _empRepo.DeleteEmployee(employee);
+                _cliRepo.DeleteClient(client);
                 return true;
             }
             catch (Exception ex)
@@ -65,17 +65,17 @@ namespace WebApp.BusinessLogic
             }
         }
 
-        public List<Employee> GetEmployeeById(int EmpID)
+        public List<Client> GetClientById(int ClientID)
         {
-            return _empRepo.GetEmployeeById(EmpID);
+            return _cliRepo.GetClientById(ClientID);
         }
 
-        public IEnumerable<Employee> GetEmployees()
+        public IEnumerable<Client> GetClients()
         {
-            return _empRepo.GetEmployees();
+            return _cliRepo.GetClients();
         }
 
-        public bool ValidateEmp(Employee employee)
+        public bool ValidateCli(Client client)
         {
             throw new NotImplementedException();
         }
