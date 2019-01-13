@@ -71,7 +71,7 @@ namespace WebApp.BusinessLogic
             return _projRepo.GetProjects();
         }
 
-        Project IProjectService.GetProjectById(int ProjectID)
+        IEnumerable<Project> GetProjectById(int ProjectID)
         {
             return _projRepo.GetProjectById(ProjectID);
         }

@@ -8,7 +8,7 @@ namespace WebApp.BusinessLogic
     {
         IEnumerable<Project> Projects();
         IEnumerable<Project> GetProjects();
-        Project GetProjectById(int ProjectID);
+        IEnumerable<Project> GetProjectById(int ProjectID);
         bool CreateProject(Project project);
         bool UpdateProject(Project project);
         bool DeleteProject(Project project);

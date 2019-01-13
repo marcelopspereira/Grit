@@ -66,5 +66,10 @@ namespace WebApp.Data
         {
             return _context.Projects.ToList();
         }
+
+        public IEnumerable<Project> GetProjectById(int ProjectID)
+        {
+            return _context.Projects.Include("ProjectID").ToList();
+        }
     }
 }
