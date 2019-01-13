@@ -6,21 +6,24 @@ namespace WebApp.ViewModel
 {
     public class EmployeeVM
     {
-        public Employee emp { get; set; }
-        public List<int> SelectedEmp { get; set; }
+        //Employee Data
+        public Employee EmpID { get; set; }
+        public Employee FullName { get; set; }
+        public Employee Email { get; set; }
+        public Employee Phone { get; set; }
+        public Employee EnumRole { get; set; }
 
-        public virtual List<Employee> Employees { get; set; }
+        //Project Data
+        public Project PID { get; set; }
+        public Project Name { get; set; }
+        public Project DueDate { get; set; }
+        public Project AssignedClientID { get; set; }
 
-        public EmployeeVM()
-        {
+        //Note Data
+        public Note NID { get; set; }
+        public Note Title { get; set; }
+        public Note Content { get; set; }
 
-        }
-
-        public EmployeeVM(Employee _emp, List<Employee> _Emp)
-        {
-            emp = _emp;
-            Employees = _Emp;
-            SelectedEmp = new List<int>();
-        }
+        public IEnumerable<Employee> GetEmployees {get;set;}
     }
 }
