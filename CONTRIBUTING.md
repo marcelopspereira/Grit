@@ -2,7 +2,7 @@
 
 I'm really glad you're reading this, because we need volunteer developers to help this project come to fruition.
 
-If you haven't already, come find us in IRC ([#opengovernment](irc://chat.freenode.net/opengovernment) on freenode). We want you working on things you're excited about.
+If you haven't already, come find us on Slack [Grit Channel](https://gritcrm.slack.com). We want you working on things you're excited about.
 
 Here are some important resources:
 
