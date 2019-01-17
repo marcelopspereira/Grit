@@ -267,13 +267,15 @@ namespace WebApp.Migrations
 
                     b.Property<string>("Content");
 
-                    b.Property<int?>("EmpID1");
+                    b.Property<int>("EID");
+
+                    b.Property<int?>("FullNameEmpID");
 
                     b.Property<string>("Title");
 
                     b.HasKey("NoteId");
 
-                    b.HasIndex("EmpID1");
+                    b.HasIndex("FullNameEmpID");
 
                     b.ToTable("EmployeeNotes");
                 });
@@ -378,9 +380,9 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("WebApp.Models.EmployeeNote", b =>
                 {
-                    b.HasOne("WebApp.Models.Employee", "EmpID")
+                    b.HasOne("WebApp.Models.Employee", "FullName")
                         .WithMany()
-                        .HasForeignKey("EmpID1");
+                        .HasForeignKey("FullNameEmpID");
                 });
 
             modelBuilder.Entity("WebApp.Models.Note", b =>

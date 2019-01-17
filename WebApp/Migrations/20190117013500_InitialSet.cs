@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebApp.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialSet : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -244,14 +244,15 @@ namespace WebApp.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(nullable: true),
                     Content = table.Column<string>(nullable: true),
-                    EmpID1 = table.Column<int>(nullable: true)
+                    EID = table.Column<int>(nullable: false),
+                    FullNameEmpID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EmployeeNotes", x => x.NoteId);
                     table.ForeignKey(
-                        name: "FK_EmployeeNotes_Employees_EmpID1",
-                        column: x => x.EmpID1,
+                        name: "FK_EmployeeNotes_Employees_FullNameEmpID",
+                        column: x => x.FullNameEmpID,
                         principalTable: "Employees",
                         principalColumn: "EmpID",
                         onDelete: ReferentialAction.Restrict);
@@ -327,9 +328,9 @@ namespace WebApp.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmployeeNotes_EmpID1",
+                name: "IX_EmployeeNotes_FullNameEmpID",
                 table: "EmployeeNotes",
-                column: "EmpID1");
+                column: "FullNameEmpID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employees_ClientID",

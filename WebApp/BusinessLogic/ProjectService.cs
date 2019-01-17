@@ -86,6 +86,9 @@ namespace WebApp.BusinessLogic
             throw new NotImplementedException();
         }
 
-
+        IEnumerable<Project> IProjectService.GetProjectById(int ProjectID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
