@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApp.Models
 {
@@ -10,6 +11,9 @@ namespace WebApp.Models
         public string Title { get; set; }
         public string Content { get; set; }
 
-        public Employee EmpID { get; set; }
+        [ForeignKey("Employee")]
+        [Display(Name = "Assigned Employee")]
+        public int EID { get; set; }
+        public Employee FullName { get; set; }
     }
 }

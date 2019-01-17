@@ -3,21 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using WebApp.BusinessLogic;
 using WebApp.Data;
 using WebApp.Models;
-using WebApp.ViewModel;
 
 namespace WebApp.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly TriumphDbContext _context;
-        private IEmployeeService _empservice;
-        private IProjectService _prjservice;
-        Project _project = new Project();
+        private readonly TriumphDbContext _context;\
 
         public EmployeeController(TriumphDbContext context)
         {
@@ -33,11 +27,13 @@ namespace WebApp.Controllers
         // GET: Employee/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            ViewData["Projects"] = _project.GetProjects();
             if (id == null)
             {
                 return NotFound();
             }
+
+            ViewBag.Project = _context.Projects.OrderBy(c => c.ID).ToList();
+            ViewBag.EmployeeNote = _context.EmployeeNotes.OrderBy(c => c.NoteId).ToList();
 
             var employee = await _context.Employees
                 .FirstOrDefaultAsync(m => m.EmpID == id);
