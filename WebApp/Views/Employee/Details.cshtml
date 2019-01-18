@@ -42,29 +42,20 @@
         <hr />
         <center><a class="btn btn-warning btn-md" asp-area="" asp-controller="Project" asp-action="Create" role="button">Add a New Project</a></center>
         <hr />
+
+
         @foreach (var item in ViewBag.Project)
         {
             if (Model.EmpID == item.EmployeeID)
             {
                 <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                <b>Project Name:</b>
-                            </th>
-                            <th>
-                                <b>Due Date:</b>
-                            </th>
-                            <th></th>
-                        </tr>
-                    </thead>
                     <tbody>
                         <tr>
                             <td>
                                 @item.Name
                             </td>
                             <td>
-                                @item.DueDate
+                                @item.DueDate.ToString("dd-MMM-yy")
                             </td>
                             <td>
                                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
@@ -75,7 +66,7 @@
                     </tbody>
                 </table>
             }
-            else
+            else if (item.EmployeeID == null)
             {
                 <p>No Open Projects</p>
             }
@@ -88,23 +79,11 @@
     <hr />
     <center><a class="btn btn-success btn-md" asp-area="" asp-controller="EmployeeNote" asp-action="Create" role="button">Add a New Note</a></center>
     <hr />
-
     @foreach (var item in ViewBag.EmployeeNote)
     {
         if (Model.EmpID == item.FullName)
         {
             <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            <b>Note Title:</b>
-                        </th>
-                        <th>
-                            <b>Content:</b>
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
                 <tbody>
                     <tr>
                         <td>
@@ -122,7 +101,7 @@
                 </tbody>
             </table>
         }
-        else
+        else if (item.FullName == null)
         {
             <p>No Open Notes</p>
         }
