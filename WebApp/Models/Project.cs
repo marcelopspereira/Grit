@@ -8,7 +8,7 @@ namespace WebApp.Models
     public class Project     {         public int ID { get; set; }
         [Display(Name = "Project Title")]         public string Name { get; set; }
         [Display(Name = "Due Date")]
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}", ApplyFormatInEditMode = true)]         public DateTime DueDate { get; set; }         public string Attributes { get; set; }         public string Priority { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}")]         public DateTime DueDate { get; set; }         public string Attributes { get; set; }         public string Priority { get; set; }
 
         [ForeignKey("Client")]
         [Display(Name = "Assigned Client")]         public int AssignedClientID { get; set; }

@@ -11,7 +11,7 @@ namespace WebApp.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly TriumphDbContext _context;\
+        private readonly TriumphDbContext _context;
 
         public EmployeeController(TriumphDbContext context)
         {
