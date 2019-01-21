@@ -40,7 +40,6 @@
     <Folder Include="ViewModel\" />
     <Folder Include="Migrations\" />
     <Folder Include="App_Data\" />
-    <Folder Include="BusinessLogic\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Note\Index.cshtml" />
