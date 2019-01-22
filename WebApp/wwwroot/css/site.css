@@ -14,7 +14,7 @@ li:hover {
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 100%;
+    width: auto;
     box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, .05);
 }
 thead {

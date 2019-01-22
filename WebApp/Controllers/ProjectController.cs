@@ -86,8 +86,8 @@ namespace WebApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["AssignedClientID"] = new SelectList(_context.Clients, "ClientID", "ClientID", project.AssignedClientID);
-            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmpID", "EmpID", project.EmployeeID);
+            ViewData["AssignedClientID"] = new SelectList(_context.Clients, "ClientID", "BusinessName");
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmpID", "FullName");
             return View(project);
         }
 
@@ -123,8 +123,8 @@ namespace WebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AssignedClientID"] = new SelectList(_context.Clients, "ClientID", "ClientID", project.AssignedClientID);
-            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmpID", "EmpID", project.EmployeeID);
+            ViewData["AssignedClientID"] = new SelectList(_context.Clients, "ClientID", "BusinessName");
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmpID", "FullName");
             return View(project);
         }
 

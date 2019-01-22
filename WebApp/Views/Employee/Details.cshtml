@@ -44,33 +44,24 @@
         <hr />
 
 
-        @foreach (var item in ViewBag.Project)
-        {
-            if (Model.EmpID == item.EmployeeID)
-            {
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td>
-                                @item.Name
-                            </td>
-                            <td>
-                                @item.DueDate.ToString("dd-MMM-yy")
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            }
-            else if (item.EmployeeID == null)
-            {
-                <p>No Open Projects</p>
-            }
-        }
+        <table class="table">
+            <thead>         <tr>             <th>                 Project Title:             </th>             <th>                 Due Date:             </th>             <th></th>         </tr>     </thead>
+            <tbody>
+                @foreach (var item in ViewBag.Project)
+                {
+                    if (Model.EmpID == item.EmployeeID)
+                    {
+                        <tr>                             <td>                                 @item.Name                             </td>                             <td>                                 @item.DueDate.ToString("dd-MMM-yy")                             </td>                             <td>                                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |                                 <a asp-action="Details" asp-route-id="@item.ID">Details</a> |                                 <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>                             </td>                         </tr>
+
+                    }
+                    else if (item.EmployeeID == null)
+                    {
+                        <tr>No Open Projects</tr>
+                    }
+
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 <hr />
@@ -79,35 +70,26 @@
     <hr />
     <center><a class="btn btn-success btn-md" asp-area="" asp-controller="EmployeeNote" asp-action="Create" role="button">Add a New Note</a></center>
     <hr />
-    @foreach (var item in ViewBag.EmployeeNote)
-    {
-        if (Model.EmpID == item.FullName)
-        {
-            <table class="table">
-                <tbody>
+    <table class="table">
+        <thead>         <tr>             <th>                 Note Title:             </th>             <th>                 Content:             </th>             <th></th>         </tr>     </thead>
+        <tbody>
+            @foreach (var item in ViewBag.EmployeeNote)
+            {
+                if (Model.EmpID == item.EID)
+                {
+                    <tr>                             <td>                                 @item.Title                             </td>                             <td>                                 @item.Content                             </td>                             <td>                                 <a asp-action="Edit" asp-route-id="@item.NoteID">Edit</a> |                                 <a asp-action="Details" asp-route-id="@item.NoteID">Details</a> |                                 <a asp-action="Delete" asp-route-id="@item.NoteID">Delete</a>                              </td>                         </tr>
+
+                }
+                else if (item.EID == null)
+                {
                     <tr>
-                        <td>
-                            @item.Title
-                        </td>
-                        <td>
-                            @item.Content
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.EmpID">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.EmpID">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.EmpID">Delete</a>
-                        </td>
+                        <td>No Open Notes</td>
                     </tr>
-                </tbody>
-            </table>
-        }
-        else if (item.FullName == null)
-        {
-            <p>No Open Notes</p>
-        }
-    }
+                }
+
+
+            }
+        </tbody>
+    </table>
 
 </div>
-
-
-
