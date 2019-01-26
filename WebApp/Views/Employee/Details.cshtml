@@ -8,7 +8,6 @@
 <h1>@Html.DisplayFor(model => model.FullName)'s Details</h1>
 <div class="row">
     <div class="col-sm-7">
-        <a class="btn btn-info btn-md" asp-action="Edit" asp-route-id="@Model.EmpID">Edit</a> |
         <a class="btn btn-warning btn-md" asp-action="Index">Back to List</a>
     </div>
     <div class="col-sm-5">
@@ -20,6 +19,9 @@
 <div class="row">
     <div class="detailBox">
         <div class="headerDtB">Contact info</div>
+        <hr />
+        <center><a class="btn btn-info btn-md" asp-action="Edit" asp-route-id="@Model.EmpID">Edit</a></center>
+        <hr />
         <dl>
             <dd class="col-sm-7">
                 <b>Name:</b> @Html.DisplayFor(model => model.FullName)
@@ -49,14 +51,20 @@
             <tbody>
                 @foreach (var item in ViewBag.Project)
                 {
-                    if (Model.EmpID == item.EmployeeID)
+                    if (item.EmployeeID == Model.EmpID)
                     {
                         <tr>                             <td>                                 @item.Name                             </td>                             <td>                                 @item.DueDate.ToString("dd-MMM-yy")                             </td>                             <td>                                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |                                 <a asp-action="Details" asp-route-id="@item.ID">Details</a> |                                 <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>                             </td>                         </tr>
 
                     }
-                    else if (item.EmployeeID == null)
+                    else if (item.EmployeeID == null || item.ID == null)
                     {
-                        <tr>No Open Projects</tr>
+                        <tr>
+                            <td>
+                                No Open Projects
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                     }
 
                 }
@@ -75,15 +83,19 @@
         <tbody>
             @foreach (var item in ViewBag.EmployeeNote)
             {
-                if (Model.EmpID == item.EID)
+                if (item.EID == Model.EmpID || item.NoteId == null)
                 {
-                    <tr>                             <td>                                 @item.Title                             </td>                             <td>                                 @item.Content                             </td>                             <td>                                 <a asp-action="Edit" asp-route-id="@item.NoteID">Edit</a> |                                 <a asp-action="Details" asp-route-id="@item.NoteID">Details</a> |                                 <a asp-action="Delete" asp-route-id="@item.NoteID">Delete</a>                              </td>                         </tr>
+                    <tr>                             <td>                                 @item.Title                             </td>                             <td>                                 @item.Content                             </td>                             <td>                                 <a asp-action="Edit" asp-route-id="@item.NoteId">Edit</a> |                                 <a asp-action="Details" asp-route-id="@item.NoteId">Details</a> |                                 <a asp-action="Delete" asp-route-id="@item.NoteId">Delete</a>                              </td>                         </tr>
 
                 }
-                else if (item.EID == null)
+                else if (item.EID == null || item.NoteId == null)
                 {
                     <tr>
-                        <td>No Open Notes</td>
+                        <td>
+                            No Open Projects
+                        </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 }
 
