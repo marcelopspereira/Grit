@@ -9,7 +9,7 @@
     <DevelopmentDependency>true</DevelopmentDependency>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Owners>Grant Watson</Owners>
-    <PackageProjectUrl>grit.azurewebsites.net</PackageProjectUrl>
+    <PackageProjectUrl>https://www.grit.azurewebsites.net</PackageProjectUrl>
   </PropertyGroup>
 
 
