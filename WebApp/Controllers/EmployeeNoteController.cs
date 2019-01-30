@@ -54,8 +54,16 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NoteId,Title,Content")] EmployeeNote employeeNote)
+        public async Task<IActionResult> Create([Bind("NoteId,Title,Content,EID")] EmployeeNote employeeNote)
         {
+            ViewData["Employee"] = _context.Employees.OrderBy(c => c.EmpID).ToList()
+                .Select(n => new SelectListItem
+                {
+                    Value = n.ToString(),
+                    Text = n.ToString()
+                }).ToList();
+            ViewData["EmployeeId"] = _context.Employees.OrderBy(c => c.EmpID).ToList();
+            ViewData["EmployeeName"] = _context.Employees.OrderBy(c => c.FullName).ToList();
             if (ModelState.IsValid)
             {
                 _context.Add(employeeNote);
@@ -86,7 +94,7 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NoteId,Title,Content")] EmployeeNote employeeNote)
+        public async Task<IActionResult> Edit(int id, [Bind("NoteId,Title,Content,EID")] EmployeeNote employeeNote)
         {
             if (id != employeeNote.NoteId)
             {
