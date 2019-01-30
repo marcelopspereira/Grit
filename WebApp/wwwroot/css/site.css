@@ -1,6 +1,13 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+sidenav {
+    background-color: #28a745;
+    width: 20%;
+    height: calc(100vh - 4px);
+    box-shadow: 0 0.18rem 0.75rem rgba(0, 0, 0, .05);
+}
+
 nav {
     background-image: linear-gradient(white, #E5E5E5);
     border-bottom: 1px solid #B7B7B7;
