@@ -13,7 +13,6 @@
     <meta name="theme-color" content="#ffffff">
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
@@ -23,13 +22,14 @@
               integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="/favicon.png" width="30" height="30" alt=""> GRIT
+                    <img src="/favicon.png" width="30" height="30" alt="">GRIT
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -39,19 +39,20 @@
 
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse navbar-right">
                     <partial name="_LoginPartial" />
-                    <div class="dropdown">
-                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Add Actions
-                        </a>
-
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item"><a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="Create">Add Employee</a></a>
-                            <a class="dropdown-item"><a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Create">Add Lead</a></a>
-                            <a class="dropdown-item"><a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="Create">Add Client</a></a>
-                            <a class="dropdown-item"><a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Create">Add Project</a></a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="dropdown">
+                            <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Add Actions
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item"><a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="Create">Add Employee</a></a>
+                                <a class="dropdown-item"><a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Create">Add Lead</a></a>
+                                <a class="dropdown-item"><a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="Create">Add Client</a></a>
+                                <a class="dropdown-item"><a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Create">Add Project</a></a>
+                            </div>
                         </div>
-                    </div>
-
+                    }
                 </div>
             </div>
         </nav>
