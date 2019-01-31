@@ -25,9 +25,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <header>
+    <header class="main-header">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white box-shadow mb-3">
             <div class="container">
+
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="/favicon.png" width="30" height="30" alt="">GRIT
                 </a>
@@ -61,7 +62,7 @@
     <div class="row">
         @if (User.Identity.IsAuthenticated)
         {
-            <sidenav class="col-md-2 d-md-block bg-light sidebar">
+            <sidebar class="col-md-2 d-md-block bg-light sidebar">
                 <div class="sidenav">
                     <ul class="nav flex-column">
                         <li class="nav-item">
@@ -81,7 +82,7 @@
                         </li>
                     </ul>
                 </div>
-            </sidenav>
+            </sidebar>
             <div class="container">
                 <partial name="_CookieConsentPartial" />
                 <main role="main" class="pb-3">
