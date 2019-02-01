@@ -1,11 +1,17 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-sidenav {
-    background-image: linear-gradient(white, #E5E5E5);
-    width: 20%;
-    height: calc(100vh - 4px);
-    box-shadow: 0 0.18rem 0.75rem rgba(0, 0, 0, .05);
+.sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 50px;
+    min-height: 100%;
+    width: 18%;
+    -webkit-transition: -webkit-transform .3s ease-in-out,width .3s ease-in-out;
+    -moz-transition: -moz-transform .3s ease-in-out,width .3s ease-in-out;
+    -o-transition: -o-transform .3s ease-in-out,width .3s ease-in-out;
+    transition: transform .3s ease-in-out,width .3s ease-in-out;
 }
 
 .main-header {
