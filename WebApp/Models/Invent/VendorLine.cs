@@ -3,16 +3,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.Models.Invent
 {
-    public class CustomerLine : INetcoreBasic, IBasePerson, IBaseCommunication
+    public class VendorLine : INetcoreBasic, IBasePerson, IBaseCommunication
     {
-        public CustomerLine()
+        public VendorLine()
         {
             this.createdAt = DateTime.UtcNow;
         }
 
         [StringLength(38)]
-        [Display(Name = "Customer Line Id")]
-        public string customerLineId { get; set; }
+        [Display(Name = "Vendor Line Id")]
+        public string vendorLineId { get; set; }
 
         [StringLength(20)]
         [Display(Name = "Job Title")]
@@ -20,11 +20,11 @@ namespace WebApp.Models.Invent
         public string jobTitle { get; set; }
 
         [StringLength(38)]
-        [Display(Name = "Customer Id")]
-        public string customerId { get; set; }
+        [Display(Name = "Vendor Id")]
+        public string vendorId { get; set; }
 
-        [Display(Name = "Customer")]
-        public Customer customer { get; set; }
+        [Display(Name = "Vendor")]
+        public Vendor vendor { get; set; }
 
         //IBasePerson
         [Display(Name = "First Name")]
