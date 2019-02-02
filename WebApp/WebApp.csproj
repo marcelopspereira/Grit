@@ -45,6 +45,7 @@
     <Folder Include="Models\Crm\" />
     <Folder Include="Models\CrmViewModels\" />
     <Folder Include="Models\ManageViewModels\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Note\Index.cshtml" />
