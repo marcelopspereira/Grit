@@ -40,6 +40,7 @@
     <Folder Include="ViewModel\" />
     <Folder Include="Migrations\" />
     <Folder Include="App_Data\" />
+    <Folder Include="Models\AccountViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Note\Index.cshtml" />
