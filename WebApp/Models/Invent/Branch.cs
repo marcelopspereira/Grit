@@ -1,31 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.Models.Invent
 {
-    public class Customer : INetcoreMasterChild, IBaseAddress
+    public class Branch : INetcoreBasic, IBaseAddress
     {
-        public Customer()
+        public Branch()
         {
             this.createdAt = DateTime.UtcNow;
+            this.isDefaultBranch = false;
         }
 
         [StringLength(38)]
-        [Display(Name = "Customer Id")]
-        public string customerId { get; set; }
+        [Display(Name = "Branch Id")]
+        public string branchId { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "Customer Name")]
+        [Display(Name = "Branch Name")]
         [Required]
-        public string customerName { get; set; }
+        public string branchName { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "Description")]
+        [Display(Name = "Branch Description")]
         public string description { get; set; }
 
-        [Display(Name = "Business Size")]
-        public BusinessSize size { get; set; }
+        [Display(Name = "Is Default Branch ?")]
+        public bool isDefaultBranch { get; set; } = false;
 
         //IBaseAddress
         [Display(Name = "Street Address 1")]
@@ -49,8 +49,5 @@ namespace WebApp.Models.Invent
         [StringLength(30)]
         public string country { get; set; }
         //IBaseAddress
-
-        [Display(Name = "Customer Contacts")]
-        public List<CustomerLine> customerLine { get; set; } = new List<CustomerLine>();
     }
 }

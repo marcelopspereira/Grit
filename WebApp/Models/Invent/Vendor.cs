@@ -4,21 +4,21 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.Models.Invent
 {
-    public class Customer : INetcoreMasterChild, IBaseAddress
+    public class Vendor : INetcoreMasterChild, IBaseAddress
     {
-        public Customer()
+        public Vendor()
         {
             this.createdAt = DateTime.UtcNow;
         }
 
         [StringLength(38)]
-        [Display(Name = "Customer Id")]
-        public string customerId { get; set; }
+        [Display(Name = "Vendor Id")]
+        public string vendorId { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "Customer Name")]
+        [Display(Name = "Vendor Name")]
         [Required]
-        public string customerName { get; set; }
+        public string vendorName { get; set; }
 
         [StringLength(50)]
         [Display(Name = "Description")]
@@ -50,7 +50,7 @@ namespace WebApp.Models.Invent
         public string country { get; set; }
         //IBaseAddress
 
-        [Display(Name = "Customer Contacts")]
-        public List<CustomerLine> customerLine { get; set; } = new List<CustomerLine>();
+        [Display(Name = "Vendor Contacts")]
+        public List<VendorLine> vendorLine { get; set; } = new List<VendorLine>();
     }
 }
