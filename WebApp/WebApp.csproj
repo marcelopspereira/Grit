@@ -43,6 +43,7 @@
     <Folder Include="wwwroot\images\" />
     <Folder Include="Models\Invent\" />
     <Folder Include="Models\Crm\" />
+    <Folder Include="Models\CrmViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Note\Index.cshtml" />
