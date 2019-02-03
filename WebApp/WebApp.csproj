@@ -50,6 +50,7 @@
     <Folder Include="MVC\" />
     <Folder Include="Helpers\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Controllers\Api\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Note\Index.cshtml" />
