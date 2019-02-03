@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Models;
-using WebApp.Models.AccountViewModel;
-using WebApp.ViewModel;
 
 namespace WebApp.Data
 {     public class TriumphDbContext : IdentityDbContext     {

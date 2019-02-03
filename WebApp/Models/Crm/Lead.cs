@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using WebApp.Models.Invent;
 
 namespace WebApp.Models.Crm
 {

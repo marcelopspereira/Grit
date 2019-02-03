@@ -4,12 +4,17 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using WebApp.Data;
 using WebApp.Models;
 using WebApp.Models.Crm;
 using WebApp.Models.Invent;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using System.IO;
 
 namespace WebApp.Services
 {
@@ -47,7 +52,7 @@ namespace WebApp.Services
                 PlainTextContent = message,
                 HtmlContent = message
             };
-            msg.AddTo(new MailAddress(email, email));
+            msg.AddTo(new EmailAddress(email, email));
             await client.SendEmailAsync(msg);
 
         }
