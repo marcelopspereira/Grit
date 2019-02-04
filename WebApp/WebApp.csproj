@@ -52,6 +52,7 @@
     <Folder Include="Extensions\" />
     <Folder Include="Controllers\Api\" />
     <Folder Include="Controllers\Admin\" />
+    <Folder Include="Controllers\Crm\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Note\Index.cshtml" />
