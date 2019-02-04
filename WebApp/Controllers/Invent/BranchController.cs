@@ -1,39 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Data;
-using WebApp.Models.Crm;
+using WebApp.Models.Invent;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace WebApp.Controllers.Crm
+namespace WebApp.Controllers.Invent
 {
 
 
-    [Authorize(Roles = "AccountExecutive")]
-    public class AccountExecutiveController : Controller
+    [Authorize(Roles = "Branch")]
+    public class BranchController : Controller
     {
         private readonly TriumphDbContext _context;
 
-        public AccountExecutiveController(TriumphDbContext context)
+        public BranchController(TriumphDbContext context)
         {
             _context = context;
         }
 
-        // GET: AccountExecutive
+        // GET: Branch
         public async Task<IActionResult> Index()
         {
-            return View(await _context.AccountExecutive.ToListAsync());
+            return View(await _context.Branch.OrderByDescending(x => x.createdAt).ToListAsync());
         }
 
-        // GET: AccountExecutive/Details/5
+        // GET: Branch/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -41,45 +39,43 @@ namespace WebApp.Controllers.Crm
                 return NotFound();
             }
 
-            var accountExecutive = await _context.AccountExecutive
-                        .SingleOrDefaultAsync(m => m.accountExecutiveId == id);
-            if (accountExecutive == null)
+            var branch = await _context.Branch
+                        .SingleOrDefaultAsync(m => m.branchId == id);
+            if (branch == null)
             {
                 return NotFound();
             }
 
-            return View(accountExecutive);
+            return View(branch);
         }
 
 
-        // GET: AccountExecutive/Create
+        // GET: Branch/Create
         public IActionResult Create()
         {
-            ViewData["systemUserId"] = new SelectList(_context.ApplicationUser, "Id", "Email");
-
             return View();
         }
 
 
 
 
-        // POST: AccountExecutive/Create
+        // POST: Branch/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("accountExecutiveId,accountExecutiveName,description,phone,email,street1,street2,city,province,country,systemUserId,createdAt")] AccountExecutive accountExecutive)
+        public async Task<IActionResult> Create([Bind("branchId,branchName,description,street1,street2,city,province,country,createdAt,isDefaultBranch")] Branch branch)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(accountExecutive);
+                _context.Add(branch);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(accountExecutive);
+            return View(branch);
         }
 
-        // GET: AccountExecutive/Edit/5
+        // GET: Branch/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -87,23 +83,22 @@ namespace WebApp.Controllers.Crm
                 return NotFound();
             }
 
-            var accountExecutive = await _context.AccountExecutive.SingleOrDefaultAsync(m => m.accountExecutiveId == id);
-            if (accountExecutive == null)
+            var branch = await _context.Branch.SingleOrDefaultAsync(m => m.branchId == id);
+            if (branch == null)
             {
                 return NotFound();
             }
-            ViewData["systemUserId"] = new SelectList(_context.ApplicationUser, "Id", "Email", accountExecutive.systemUserId);
-            return View(accountExecutive);
+            return View(branch);
         }
 
-        // POST: AccountExecutive/Edit/5
+        // POST: Branch/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("accountExecutiveId,accountExecutiveName,description,phone,email,street1,street2,city,province,country,systemUserId,createdAt")] AccountExecutive accountExecutive)
+        public async Task<IActionResult> Edit(string id, [Bind("branchId,branchName,description,street1,street2,city,province,country,createdAt,isDefaultBranch")] Branch branch)
         {
-            if (id != accountExecutive.accountExecutiveId)
+            if (id != branch.branchId)
             {
                 return NotFound();
             }
@@ -112,12 +107,22 @@ namespace WebApp.Controllers.Crm
             {
                 try
                 {
-                    _context.Update(accountExecutive);
+                    _context.Update(branch);
                     await _context.SaveChangesAsync();
+
+                    if (branch.isDefaultBranch)
+                    {
+                        List<Branch> others = await _context.Branch.Where(x => !x.branchId.Equals(branch.branchId)).ToListAsync();
+                        foreach (var item in others)
+                        {
+                            item.isDefaultBranch = false;
+                            await _context.SaveChangesAsync();
+                        }
+                    }
                 }
-                catch (Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException)
                 {
-                    if (!AccountExecutiveExists(accountExecutive.accountExecutiveId))
+                    if (!BranchExists(branch.branchId))
                     {
                         return NotFound();
                     }
@@ -128,10 +133,10 @@ namespace WebApp.Controllers.Crm
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(accountExecutive);
+            return View(branch);
         }
 
-        // GET: AccountExecutive/Delete/5
+        // GET: Branch/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -139,29 +144,28 @@ namespace WebApp.Controllers.Crm
                 return NotFound();
             }
 
-            var accountExecutive = await _context.AccountExecutive
-                    .SingleOrDefaultAsync(m => m.accountExecutiveId == id);
-            if (accountExecutive == null)
+            var branch = await _context.Branch
+                    .SingleOrDefaultAsync(m => m.branchId == id);
+            if (branch == null)
             {
                 return NotFound();
             }
 
-            return View(accountExecutive);
+            return View(branch);
         }
 
 
 
 
-        // POST: AccountExecutive/Delete/5
+        // POST: Branch/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var accountExecutive = await _context.AccountExecutive.SingleOrDefaultAsync(m => m.accountExecutiveId == id);
-
+            var branch = await _context.Branch.SingleOrDefaultAsync(m => m.branchId == id);
             try
             {
-                _context.AccountExecutive.Remove(accountExecutive);
+                _context.Branch.Remove(branch);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -169,15 +173,16 @@ namespace WebApp.Controllers.Crm
             {
 
                 ViewData["StatusMessage"] = "Error. Calm Down ^_^ and please contact your SysAdmin with this message: " + ex;
-                return RedirectToAction(nameof(Delete), new { id = accountExecutive.accountExecutiveId });
+                return View(branch);
             }
+
 
 
         }
 
-        private bool AccountExecutiveExists(string id)
+        private bool BranchExists(string id)
         {
-            return _context.AccountExecutive.Any(e => e.accountExecutiveId == id);
+            return _context.Branch.Any(e => e.branchId == id);
         }
 
     }
@@ -191,13 +196,13 @@ namespace WebApp.MVC
 {
     public static partial class Pages
     {
-        public static class AccountExecutive
+        public static class Branch
         {
-            public const string Controller = "AccountExecutive";
+            public const string Controller = "Branch";
             public const string Action = "Index";
-            public const string Role = "AccountExecutive";
-            public const string Url = "/AccountExecutive/Index";
-            public const string Name = "AccountExecutive";
+            public const string Role = "Branch";
+            public const string Url = "/Branch/Index";
+            public const string Name = "Branch";
         }
     }
 }
@@ -205,7 +210,8 @@ namespace WebApp.Models
 {
     public partial class ApplicationUser
     {
-        [Display(Name = "AccountExecutive")]
-        public bool AccountExecutiveRole { get; set; } = false;
+        [Display(Name = "Branch")]
+        public bool BranchRole { get; set; } = false;
     }
 }
+

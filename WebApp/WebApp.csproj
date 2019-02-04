@@ -53,6 +53,7 @@
     <Folder Include="Controllers\Api\" />
     <Folder Include="Controllers\Admin\" />
     <Folder Include="Controllers\Crm\" />
+    <Folder Include="Controllers\Invent\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Note\Index.cshtml" />
