@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp.Controllers.Admin
 {
-    public class AdminlteController : Controller
+    public partial class AdminlteController : Controller
     {
 
     }
