@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebApp.Data;
+using WebApp.Models.Invent;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,9 +18,9 @@ namespace WebApp.Controllers.Invent
     [Authorize(Roles = "Product")]
     public class ProductController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly TriumphDbContext _context;
 
-        public ProductController(ApplicationDbContext context)
+        public ProductController(TriumphDbContext context)
         {
             _context = context;
         }
