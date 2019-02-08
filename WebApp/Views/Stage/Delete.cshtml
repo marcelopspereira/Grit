@@ -1,12 +1,12 @@
-﻿@model netcore.Models.Crm.Stage
-@inject netcore.Data.ApplicationDbContext _context;
+﻿@model WebApp.Models.Crm.Stage
+@inject WebApp.Data.TriumphDbContext _context;
 
 @{
     ViewData["Title"] = "Delete";
     Layout = "~/Views/Shared/_AdminlteNetcoreDelete.cshtml";
     ViewData["EntityIcon"] = "fa fa-list-ol";
     ViewData["DeleteInfo"] = "Stage that already have transactions can not be deleted.";
-    netcore.Models.Crm.Opportunity del = _context.Opportunity.Where(x => x.stageId.Equals(Model.stageId)).FirstOrDefault();
+    WebApp.Models.Crm.Opportunity del = _context.Opportunity.Where(x => x.stageId.Equals(Model.stageId)).FirstOrDefault();
     ViewData["IsCanDeleted"] = false;
     if (del == null)
     {

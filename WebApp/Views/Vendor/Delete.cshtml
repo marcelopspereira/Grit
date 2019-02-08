@@ -1,12 +1,12 @@
-﻿@model netcore.Models.Invent.Vendor
-@inject netcore.Data.ApplicationDbContext _context;
+﻿@model WebApp.Models.Invent.Vendor
+@inject WebApp.Data.TriumphDbContext _context;
 
 @{
     ViewData["Title"] = "Delete";
     Layout = "~/Views/Shared/_AdminlteNetcoreDelete.cshtml";
     ViewData["EntityIcon"] = "fa fa-industry";
     ViewData["DeleteInfo"] = "Vendor that already have transactions (PO) can not be deleted.";
-    netcore.Models.Invent.PurchaseOrder purchaseOrder = _context.PurchaseOrder.Where(x => x.vendorId.Equals(Model.vendorId)).FirstOrDefault();
+    WebApp.Models.Invent.PurchaseOrder purchaseOrder = _context.PurchaseOrder.Where(x => x.vendorId.Equals(Model.vendorId)).FirstOrDefault();
     ViewData["IsCanDeleted"] = false;
     if (purchaseOrder == null)
     {

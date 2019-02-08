@@ -1,13 +1,13 @@
-﻿@model netcore.Models.Crm.Activity
-@inject netcore.Data.ApplicationDbContext _context;
+﻿@model WebApp.Models.Crm.Activity
+@inject WebApp.Data.TriumphDbContext _context;
 
 @{
     ViewData["Title"] = "Delete";
     Layout = "~/Views/Shared/_AdminlteNetcoreDelete.cshtml";
     ViewData["EntityIcon"] = "fa fa-bars";
     ViewData["DeleteInfo"] = "Activity that already have transactions can not be deleted.";
-    netcore.Models.Crm.LeadLine del = _context.LeadLine.Where(x => x.activityId.Equals(Model.activityId)).FirstOrDefault();
-    netcore.Models.Crm.OpportunityLine del2 = _context.OpportunityLine.Where(x => x.activityId.Equals(Model.activityId)).FirstOrDefault();
+    WebApp.Models.Crm.LeadLine del = _context.LeadLine.Where(x => x.activityId.Equals(Model.activityId)).FirstOrDefault();
+    WebApp.Models.Crm.OpportunityLine del2 = _context.OpportunityLine.Where(x => x.activityId.Equals(Model.activityId)).FirstOrDefault();
     ViewData["IsCanDeleted"] = false;
     if (del == null || del2 == null)
     {
