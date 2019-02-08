@@ -1,0 +1,108 @@
+﻿@model netcore.Models.Crm.Lead
+@inject netcore.Data.ApplicationDbContext _context
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_AdminlteNetcoreDelete.cshtml";
+    ViewData["EntityIcon"] = "fa fa-street-view";
+    ViewData["DeleteInfo"] = "Lead that already converted can not be deleted.";
+    netcore.Models.Crm.Lead del = _context.Lead.Where(x => x.leadId.Equals(Model.leadId)).FirstOrDefault();
+    ViewData["IsCanDeleted"] = false;
+    if (!del.isConverted)
+    {
+        ViewData["IsCanDeleted"] = true;
+    }
+    var customerName = "";
+    netcore.Models.Invent.Customer cust = _context.Customer.Where(x => x.customerId.Equals(Model.customerId)).FirstOrDefault();
+    if (cust != null)
+    {
+        customerName = cust.customerName;
+    }
+}
+
+
+@Html.Partial("_StatusMessage", (string)ViewBag.StatusMessage)
+<div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.leadName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.leadName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.street1)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.street1)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.street2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.street2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.city)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.city)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.province)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.province)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.country)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.country)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.isQualified)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.isQualified)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.isConverted)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.isConverted)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.customerId)
+        </dt>
+        <dd>
+            @customerName
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.createdAt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.createdAt)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.accountExecutive)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.accountExecutive.accountExecutiveName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.channel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.channel.channelName)
+        </dd>
+    </dl>
+
+</div>
