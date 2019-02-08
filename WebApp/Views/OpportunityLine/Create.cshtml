@@ -1,0 +1,67 @@
+﻿@model netcore.Models.Crm.OpportunityLine
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminlteNetcorePopup.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="opportunityLineId" />
+        <div class="form-group hidden">
+            <label asp-for="opportunityId" class="control-label"></label>
+            <select asp-for="opportunityId" class="form-control select2" asp-items="ViewBag.opportunityId"></select>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="activityId" class="control-label"></label>
+                    <select asp-for="activityId" class="form-control select2" asp-items="ViewBag.activityId"></select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="startDate" class="control-label"></label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input asp-for="startDate" value="@Model.startDate.ToString("MM/dd/yyyy")" class="form-control pull-right datepicker" type="text" />
+                    </div>
+                    <span asp-validation-for="startDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="endDate" class="control-label"></label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input asp-for="endDate" value="@Model.endDate.ToString("MM/dd/yyyy")" class="form-control pull-right datepicker" type="text" />
+                    </div>
+                    <span asp-validation-for="endDate" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+       
+       
+    
+        <div class="form-group">
+            <label asp-for="description" class="control-label"></label>
+            <input asp-for="description" class="form-control" />
+            <span asp-validation-for="description" class="text-danger"></span>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

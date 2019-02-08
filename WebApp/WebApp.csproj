@@ -54,6 +54,7 @@
     <Folder Include="Controllers\Admin\" />
     <Folder Include="Controllers\Crm\" />
     <Folder Include="Controllers\Invent\" />
+    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Note\Index.cshtml" />

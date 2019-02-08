@@ -1,0 +1,39 @@
+﻿@model netcore.Models.Crm.Activity
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminlteNetcoreCreate.cshtml";
+    ViewData["CreateInfo"] = "Activity type for your followup actions to lead and opportunity.";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="activityId" />
+            <div class="form-group">
+                <label asp-for="activityName" class="control-label"></label>
+                <input asp-for="activityName" class="form-control" />
+                <span asp-validation-for="activityName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="description" class="control-label"></label>
+                <input asp-for="description" class="form-control" />
+                <span asp-validation-for="description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="colorHex" class="control-label"></label>
+                <input asp-for="colorHex" class="form-control" />
+                <span asp-validation-for="colorHex" class="text-danger"></span>
+            </div>
+           
+        
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

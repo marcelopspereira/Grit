@@ -1,0 +1,39 @@
+﻿@model netcore.Models.Crm.Rating
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminlteNetcoreCreate.cshtml";
+    ViewData["CreateInfo"] = "Rating qualification for your opportunity.";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ratingId" />
+            <div class="form-group">
+                <label asp-for="ratingName" class="control-label"></label>
+                <input asp-for="ratingName" class="form-control" />
+                <span asp-validation-for="ratingName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="description" class="control-label"></label>
+                <input asp-for="description" class="form-control" />
+                <span asp-validation-for="description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="colorHex" class="control-label"></label>
+                <input asp-for="colorHex" class="form-control" />
+                <span asp-validation-for="colorHex" class="text-danger"></span>
+            </div>
+           
+        
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

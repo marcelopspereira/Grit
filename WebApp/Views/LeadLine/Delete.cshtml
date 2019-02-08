@@ -1,0 +1,51 @@
+﻿@model netcore.Models.Crm.LeadLine
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_AdminlteNetcoreDelete.cshtml";
+}
+
+
+
+<div>
+    
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.startDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.startDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.endDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.endDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.createdAt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.createdAt)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.activity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.activity.activityId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.lead)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.lead.leadId)
+        </dd>
+    </dl>
+    
+</div>

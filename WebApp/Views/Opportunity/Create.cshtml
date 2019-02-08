@@ -1,0 +1,94 @@
+﻿@model netcore.Models.Crm.Opportunity
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminlteNetcoreCreate.cshtml";
+    ViewData["CreateInfo"] = "Opportunity is a deal that you have the possibility to close.";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="opportunityId" />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="opportunityName" class="control-label"></label>
+                    <input asp-for="opportunityName" class="form-control" />
+                    <span asp-validation-for="opportunityName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="customerId" class="control-label"></label>
+                    <select asp-for="customerId" class="form-control select2" asp-items="ViewBag.customerId"></select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="description" class="control-label"></label>
+            <input asp-for="description" class="form-control" />
+            <span asp-validation-for="description" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="stageId" class="control-label"></label>
+                    <select asp-for="stageId" class="form-control select2" asp-items="ViewBag.stageId"></select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="accountExecutiveId" class="control-label"></label>
+                    <select asp-for="accountExecutiveId" class="form-control select2" asp-items="ViewBag.accountExecutiveId"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="estimatedRevenue" class="control-label"></label>
+                    <input asp-for="estimatedRevenue" class="form-control" />
+                    <span asp-validation-for="estimatedRevenue" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="estimatedClosingDate" class="control-label"></label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input asp-for="estimatedClosingDate" value="@Model.estimatedClosingDate.ToString("MM/dd/yyyy")" class="form-control pull-right datepicker" type="text" />
+                    </div>
+                    <span asp-validation-for="estimatedClosingDate" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="probability" class="control-label"></label>
+                    <input asp-for="probability" class="form-control" />
+                    <span asp-validation-for="probability" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="ratingId" class="control-label"></label>
+                    <select asp-for="ratingId" class="form-control select2" asp-items="ViewBag.ratingId"></select>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

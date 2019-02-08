@@ -1,0 +1,96 @@
+﻿@model IEnumerable<netcore.Models.Crm.Opportunity>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminlteNetcoreIndex.cshtml";
+    ViewData["EntityIcon"] = "fa fa-dollar";
+    ViewData["ListTitle"] = "Opportunity List";
+    ViewData["IndexInfo"] = "Opportunity is a deal that you have the possibility to close";
+}
+
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.opportunityName)
+            </th>
+            <th class="hidden">
+                @Html.DisplayNameFor(model => model.description)
+            </th>
+            <th class="hidden">
+                @Html.DisplayNameFor(model => model.estimatedRevenue)
+            </th>
+            <th class="hidden">
+                @Html.DisplayNameFor(model => model.estimatedClosingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.probability)
+            </th>
+            <th class="hidden">
+                @Html.DisplayNameFor(model => model.accountExecutive)
+            </th>
+            <th class="hidden">
+                @Html.DisplayNameFor(model => model.customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.stage)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <div class="tools">
+                        <a asp-action="Edit" asp-route-id="@item.opportunityId" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+                        <a asp-action="Details" asp-route-id="@item.opportunityId" class="btn btn-primary btn-xs"><i class="fa fa-list"></i></a>
+                        <a asp-action="Delete" asp-route-id="@item.opportunityId" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                    </div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.opportunityName)
+                </td>
+                <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.description)
+                </td>
+                <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.estimatedRevenue)
+                </td>
+                <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.estimatedClosingDate)
+                </td>
+                <td>
+                    <div class="progress xs">
+                        <div class="progress-bar progress-bar-green" style="width: @item.probability%;"></div>
+                    </div>
+                </td>
+                <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.accountExecutive.accountExecutiveId)
+                </td>
+                <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.customer.customerId)
+                </td>
+                <td>
+
+                    <span class="label" style="background-color:@item.rating.colorHex">
+                        @Html.DisplayFor(modelItem => item.rating.ratingName)
+                    </span>
+                </td>
+                <td>
+                    <span class="label" style="background-color:@item.stage.colorHex">
+                        @Html.DisplayFor(modelItem => item.stage.stageName)
+                    </span>
+
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

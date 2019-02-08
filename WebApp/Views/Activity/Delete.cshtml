@@ -1,0 +1,49 @@
+﻿@model netcore.Models.Crm.Activity
+@inject netcore.Data.ApplicationDbContext _context;
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_AdminlteNetcoreDelete.cshtml";
+    ViewData["EntityIcon"] = "fa fa-bars";
+    ViewData["DeleteInfo"] = "Activity that already have transactions can not be deleted.";
+    netcore.Models.Crm.LeadLine del = _context.LeadLine.Where(x => x.activityId.Equals(Model.activityId)).FirstOrDefault();
+    netcore.Models.Crm.OpportunityLine del2 = _context.OpportunityLine.Where(x => x.activityId.Equals(Model.activityId)).FirstOrDefault();
+    ViewData["IsCanDeleted"] = false;
+    if (del == null || del2 == null)
+    {
+        ViewData["IsCanDeleted"] = true;
+    }
+}
+
+
+@Html.Partial("_StatusMessage", (string)ViewBag.StatusMessage)
+<div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.activityName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.activityName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.colorHex)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.colorHex)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.createdAt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.createdAt)
+        </dd>
+    </dl>
+
+</div>
