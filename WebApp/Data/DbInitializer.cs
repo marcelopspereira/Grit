@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using netcore.Models;
+using WebApp.Models;
 using WebApp.Services;
 
 namespace WebApp.Data
@@ -10,7 +11,7 @@ namespace WebApp.Data
     public static class DbInitializer
     {
         public static async Task Initialize(TriumphDbContext context,
-            UserManager<ApplicationUser> userManager,
+            UserManager<Models.ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
             INetcoreService netcoreService)
         {
@@ -29,5 +30,6 @@ namespace WebApp.Data
             await netcoreService.InitCRM();
 
         }
+
     }
 }

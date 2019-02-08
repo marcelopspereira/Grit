@@ -1,6 +1,6 @@
-﻿@using netcore.Models.Crm
-@using netcore.Models.CrmViewModels
-@inject netcore.Data.ApplicationDbContext _context
+﻿@using WebApp.Models.Crm
+@using WebApp.Models.CrmViewModels
+@inject WebApp.Data.TriumphDbContext _context
 @{
     ViewData["Title"] = "CRM Dashboard";
     Layout = "_AdminlteNetcore";
@@ -111,13 +111,19 @@
                 @:<div class="row" style="margin-top:20px;">
 
 
+
+
+
+
+
+
                 }
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="info-box">
                         <span class="info-box-icon" style="background-color:@item.RatingHex;"><i class="fa fa-star-o" style="color:white;"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">@item.RatingName</span>
-                            <span class="info-box-number">@item.RatingValue</span>
+                            <span class="info-box-text">@</span>
+                            <span class="info-box-number">@</span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
