@@ -1,4 +1,4 @@
-﻿@model netcore.Models.Invent.TransferOrder
+﻿@model WebApp.Models.Invent.TransferOrder
 
 @{
     ViewData["Title"] = "Delete";
@@ -6,7 +6,7 @@
     ViewData["EntityIcon"] = "fa fa-recycle";
     ViewData["DeleteInfo"] = "[Completed] Transfer Order (TO) can not be deleted. Rollback status to [Open] by deleting related Goods Issue and Goods Receive";
     ViewData["IsCanDeleted"] = false;
-    if (Model.transferOrderStatus != netcore.Models.Invent.TransferOrderStatus.Completed
+    if (Model.transferOrderStatus != WebApp.Models.Invent.TransferOrderStatus.Completed
         && Model.isIssued == false
         && Model.isReceived == false)
     {

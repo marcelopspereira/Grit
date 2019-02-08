@@ -1,7 +1,7 @@
-﻿@model netcore.Models.ApplicationUser
+﻿@model WebApp.Models.ApplicationUser
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-@inject netcore.Data.ApplicationDbContext Context
+@inject WebApp.Data.TriumphDbContext Context
 
 @{
     ViewData["Title"] = "Change Profile Picture";
@@ -100,13 +100,13 @@
 
 
 @section Styles{
- 
+
     <!--blueimp file upload-->
     <link rel="stylesheet" href="~/lib/jQuery-File-Upload-9.21.0/css/jquery.fileupload.css" />
 }
 
 @section Scripts{
-   
+
     <!--blueimp file upload-->
     <script src="~/lib/jQuery-File-Upload-9.21.0/js/jquery.fileupload.js"></script>
     <script>

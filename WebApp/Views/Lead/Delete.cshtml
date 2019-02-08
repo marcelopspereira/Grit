@@ -1,19 +1,19 @@
-﻿@model netcore.Models.Crm.Lead
-@inject netcore.Data.ApplicationDbContext _context
+﻿@model WebApp.Models.Crm.Lead
+@inject WebApp.Data.TriumphDbContext _context
 
 @{
     ViewData["Title"] = "Delete";
     Layout = "~/Views/Shared/_AdminlteNetcoreDelete.cshtml";
     ViewData["EntityIcon"] = "fa fa-street-view";
     ViewData["DeleteInfo"] = "Lead that already converted can not be deleted.";
-    netcore.Models.Crm.Lead del = _context.Lead.Where(x => x.leadId.Equals(Model.leadId)).FirstOrDefault();
+    WebApp.Models.Crm.Lead del = _context.Lead.Where(x => x.leadId.Equals(Model.leadId)).FirstOrDefault();
     ViewData["IsCanDeleted"] = false;
     if (!del.isConverted)
     {
         ViewData["IsCanDeleted"] = true;
     }
     var customerName = "";
-    netcore.Models.Invent.Customer cust = _context.Customer.Where(x => x.customerId.Equals(Model.customerId)).FirstOrDefault();
+    WebApp.Models.Invent.Customer cust = _context.Customer.Where(x => x.customerId.Equals(Model.customerId)).FirstOrDefault();
     if (cust != null)
     {
         customerName = cust.customerName;

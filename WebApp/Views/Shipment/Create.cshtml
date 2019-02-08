@@ -1,4 +1,4 @@
-﻿@model netcore.Models.Invent.Shipment
+﻿@model WebApp.Models.Invent.Shipment
 
 
 @{
@@ -105,13 +105,13 @@
             var items = "<option value='0'>Select</option>";
             $('#warehouseId').html(items);
 
-            $('#salesOrderId').change(function () { 
+            $('#salesOrderId').change(function () {
                 var url = '@Url.Content("~/")' + "Shipment/GetWarehouseByOrder";
                 var ddlsource = '#salesOrderId';
-                $.getJSON(url, { salesOrderId: $(ddlsource).val() }, function (data) { 
+                $.getJSON(url, { salesOrderId: $(ddlsource).val() }, function (data) {
                     var items = '';
                     $('#warehouseId').empty();
-                    $.each(data, function (i, warehouse) { 
+                    $.each(data, function (i, warehouse) {
                         items += "<option value='" + warehouse.value + "'>" + warehouse.text + "</option>";
                     });
                     $('#warehouseId').html(items);

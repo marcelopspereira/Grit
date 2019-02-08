@@ -1,13 +1,13 @@
-﻿@using netcore.Models.Invent
-@inject netcore.Data.ApplicationDbContext Context
-@inject netcore.Services.INetcoreService Svc
+﻿@using WebApp.Models.Invent
+@inject WebApp.Data.TriumphDbContext Context
+@inject WebApp.Services.INetcoreService Svc
 @{
     ViewData["Title"] = "Stock Index";
     Layout = "_AdminlteNetcore";
-    
+
     List<VMStock> stocks = new List<VMStock>();
     stocks = Svc.GetStockPerWarehouse();
-   
+
 }
 
 
@@ -58,13 +58,13 @@
                                     {
                                         <tr>
 
-                                            <td>@item.Product</td>
-                                            <td>@item.Warehouse</td>
-                                            <td>@item.QtyReceiving</td>
-                                            <td>@item.QtyShipment</td>
-                                            <td>@item.QtyTransferIn</td>
-                                            <td>@item.QtyTransferOut</td>
-                                            <td>@item.QtyOnhand</td>
+                                            <td>@</td>
+                                            <td>@</td>
+                                            <td>@</td>
+                                            <td>@</td>
+                                            <td>@</td>
+                                            <td>@</td>
+                                            <td>@</td>
                                         </tr>
                                     }
                                 </tbody>
@@ -101,15 +101,15 @@
                 "dom": 'lrtip',
                 "scrollX": false,
                 "buttons": [
-                                { 
+                                {
                                     extend: 'csv',
                                     filename: 'stock-csv'
                                 },
-                                { 
-                                    extend: 'pdf',      
+                                {
+                                    extend: 'pdf',
                                     filename: 'stock-pdf'
                                 },
-                                { 
+                                {
                                     extend: 'excel',
                                     filename: 'stock-excel'
                                 }
